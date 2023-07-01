@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Web", "JobPortal.Web\JobPortal.Web.csproj", "{5EE9614B-9FFB-43F6-966B-193B003AE638}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{179D7AAF-8A45-481B-B55C-B20F357E876E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7FABF99B-AB6B-49C4-9A57-78ACDD68E229}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Data", "JobPortal.Data\JobPortal.Data.csproj", "{E7B7255F-D62C-444C-A5A5-67B99AD527FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Data.Models", "JobPortal.Data.Models\JobPortal.Data.Models.csproj", "{96175735-953B-4E84-8142-020DB8201DEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Web.ViewModels", "JobPortal.Web.ViewModels\JobPortal.Web.ViewModels.csproj", "{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Common", "JobPortal.Common\JobPortal.Common.csproj", "{B6707076-53DC-4314-8F4B-9BC53F06CF57}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EE9614B-9FFB-43F6-966B-193B003AE638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EE9614B-9FFB-43F6-966B-193B003AE638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EE9614B-9FFB-43F6-966B-193B003AE638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EE9614B-9FFB-43F6-966B-193B003AE638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7B7255F-D62C-444C-A5A5-67B99AD527FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7B7255F-D62C-444C-A5A5-67B99AD527FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7B7255F-D62C-444C-A5A5-67B99AD527FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7B7255F-D62C-444C-A5A5-67B99AD527FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96175735-953B-4E84-8142-020DB8201DEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96175735-953B-4E84-8142-020DB8201DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96175735-953B-4E84-8142-020DB8201DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96175735-953B-4E84-8142-020DB8201DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6707076-53DC-4314-8F4B-9BC53F06CF57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6707076-53DC-4314-8F4B-9BC53F06CF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6707076-53DC-4314-8F4B-9BC53F06CF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6707076-53DC-4314-8F4B-9BC53F06CF57}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5EE9614B-9FFB-43F6-966B-193B003AE638} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
+		{E7B7255F-D62C-444C-A5A5-67B99AD527FE} = {7FABF99B-AB6B-49C4-9A57-78ACDD68E229}
+		{96175735-953B-4E84-8142-020DB8201DEE} = {7FABF99B-AB6B-49C4-9A57-78ACDD68E229}
+		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E7B9344-6DE8-43DA-8CD0-B70E0ACEA7D6}
+	EndGlobalSection
+EndGlobal
