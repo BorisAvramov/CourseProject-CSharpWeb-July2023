@@ -1,4 +1,4 @@
-using JobPortal.Web.Data;
+using JobPortal.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
