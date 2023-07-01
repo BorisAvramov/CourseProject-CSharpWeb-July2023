@@ -2,7 +2,7 @@
 
 namespace JobPortal.Data.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<Guid>
     {
 
 
