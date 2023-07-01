@@ -1,11 +1,12 @@
 ﻿
 using JobPortal.Web.ViewModels.Home;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace JobPortal.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         public HomeController()
@@ -13,6 +14,7 @@ namespace JobPortal.Web.Controllers
             
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
