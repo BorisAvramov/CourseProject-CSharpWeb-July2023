@@ -1,4 +1,5 @@
-﻿using JobPortal.Web.Models;
+﻿
+using JobPortal.Web.ViewModels.Home;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
