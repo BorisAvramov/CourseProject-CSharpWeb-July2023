@@ -15,4 +15,15 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color:ghostwhite
 }
+
+body header nav {
+        background-color:mediumpurple;
+}
+
+body  header  nav  a:hover {
+        text-decoration:overline;
+}
+
+
