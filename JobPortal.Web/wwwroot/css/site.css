@@ -19,11 +19,16 @@ body {
 }
 
 body header nav {
-        background-color:mediumpurple;
+        background-color:goldenrod;
 }
 
 body  header  nav  a:hover {
         text-decoration:overline;
+}
+
+
+body > div > main > div > h2 {
+        color: dodgerblue
 }
 
 

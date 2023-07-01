@@ -16,12 +16,33 @@
     </li>
 }
 else
-{
-    <li class="nav-item">
+{   
+
+   @* <li class="nav-item">
+
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
+    </li>*@
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Register
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Register">Company</a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Register">Applicant</a>
+                </li>
+            </ul>
+        </div>
+   
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <button class="btn btn-primary" type="button" asp-area="Identity" asp-page="/Account/Login" aria-expanded="false">
+                Login
+            </button>
+            @*<a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Login">Login</a>*@
     </li>
 }
 </ul>
