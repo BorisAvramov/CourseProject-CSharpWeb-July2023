@@ -18,11 +18,11 @@
 else
 {   
 
-   @* <li class="nav-item">
+   <li class="nav-item">
 
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>*@
-        <div class="dropdown">
+            <button class="btn btn-primary" type="button" asp-area="Identity" asp-page="/Account/Register">Register</button>
+   </li>
+        @*<div class="dropdown">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Register
             </button>
@@ -36,7 +36,7 @@ else
                     <a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Register">Applicant</a>
                 </li>
             </ul>
-        </div>
+        </div>*@
    
     <li class="nav-item">
             <button class="btn btn-primary" type="button" asp-area="Identity" asp-page="/Account/Login" aria-expanded="false">
