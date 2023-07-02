@@ -37,7 +37,7 @@ namespace JobPortal.Data.Models
         [Required]
         public string ImgUrl { get; set; } = null!;
 
-
+        [Comment("Town of the applicant where he is searching a job")]
         [ForeignKey(nameof(Town))]
         public int TownId { get; set; }
         public virtual Town Town { get; set; } = null!;
@@ -61,9 +61,10 @@ namespace JobPortal.Data.Models
 
 
         [Comment("This is a company reference to application user")]
-        public Guid UserId { get; set; }
+        [ForeignKey(nameof(ApplicationUser))]
+        public Guid ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser User { get; set; } = null!;
+        public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
 
 

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,7 @@ namespace JobPortal.Data.Models
 
 
         [Comment("This is a company reference to application user")]
+        [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
