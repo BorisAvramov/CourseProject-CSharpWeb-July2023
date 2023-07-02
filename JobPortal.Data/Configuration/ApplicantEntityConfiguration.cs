@@ -32,7 +32,7 @@ namespace JobPortal.Data.Configuration
             builder
               .HasOne(a => a.ProgrammingLanguage)
               .WithMany(pl => pl.Applicants)
-              .HasForeignKey(a => a.TownId)
+              .HasForeignKey(a => a.ProgrammingLanguageId)
               .OnDelete(DeleteBehavior.Restrict);
 
             
