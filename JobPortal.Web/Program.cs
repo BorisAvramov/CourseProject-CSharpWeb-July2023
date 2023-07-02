@@ -3,6 +3,8 @@ using JobPortal.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using JobPortal.Web.Infrastructures.Extensions;
+
 namespace JobPortal.Web
 {
     public class Program
@@ -33,6 +35,7 @@ namespace JobPortal.Web
                 .AddEntityFrameworkStores<JobPortalDbContext>();
 
 
+            builder.Services.AddApplicationServices();
 
             builder.Services.AddControllersWithViews();
 

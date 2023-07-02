@@ -11,7 +11,7 @@
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link text-dark" asp-controller="User" asp-action="Logout">Logout</button>
         </form>
     </li>
 }
@@ -19,30 +19,14 @@ else
 {   
 
    <li class="nav-item">
+            <a class="nav-link text-light btn btn-primary" asp-controller="User" asp-action="Register">Register</a>
 
-            <button class="btn btn-primary" type="button" asp-area="Identity" asp-page="/Account/Register">Register</button>
    </li>
-        @*<div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Register
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li class="nav-item">
-
-                    <a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Register">Company</a>
-                </li>
-                <li class="nav-item">
-
-                    <a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Register">Applicant</a>
-                </li>
-            </ul>
-        </div>*@
+       
    
     <li class="nav-item">
-            <button class="btn btn-primary" type="button" asp-area="Identity" asp-page="/Account/Login" aria-expanded="false">
-                Login
-            </button>
-            @*<a class="nav-link text-dark text-sm-start" asp-area="Identity" asp-page="/Account/Login">Login</a>*@
+           
+           <a class="nav-link text-light btn btn-primary" asp-controller="User" asp-action="Login">login</a>
     </li>
 }
 </ul>

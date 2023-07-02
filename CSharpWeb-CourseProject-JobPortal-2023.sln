@@ -9,17 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{179D7AAF-8A4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7FABF99B-AB6B-49C4-9A57-78ACDD68E229}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Data", "JobPortal.Data\JobPortal.Data.csproj", "{E7B7255F-D62C-444C-A5A5-67B99AD527FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Data", "JobPortal.Data\JobPortal.Data.csproj", "{E7B7255F-D62C-444C-A5A5-67B99AD527FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Data.Models", "JobPortal.Data.Models\JobPortal.Data.Models.csproj", "{96175735-953B-4E84-8142-020DB8201DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Data.Models", "JobPortal.Data.Models\JobPortal.Data.Models.csproj", "{96175735-953B-4E84-8142-020DB8201DEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Web.ViewModels", "JobPortal.Web.ViewModels\JobPortal.Web.ViewModels.csproj", "{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Web.ViewModels", "JobPortal.Web.ViewModels\JobPortal.Web.ViewModels.csproj", "{C2F81E5E-2DC3-4666-84E7-D182B8E2D154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Common", "JobPortal.Common\JobPortal.Common.csproj", "{B6707076-53DC-4314-8F4B-9BC53F06CF57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Common", "JobPortal.Common\JobPortal.Common.csproj", "{B6707076-53DC-4314-8F4B-9BC53F06CF57}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A5BCA3BE-4A54-4D62-AD59-3FBDD5CF2A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Services.Data", "JobPortal.Services.Data\JobPortal.Services.Data.csproj", "{CF1E7BB3-13D3-4007-B446-3ED381E899AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Services.Data", "JobPortal.Services.Data\JobPortal.Services.Data.csproj", "{CF1E7BB3-13D3-4007-B446-3ED381E899AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Web.Infrastructures", "JobPortal.Web.Infrastructures\JobPortal.Web.Infrastructures.csproj", "{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{CF1E7BB3-13D3-4007-B446-3ED381E899AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF1E7BB3-13D3-4007-B446-3ED381E899AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF1E7BB3-13D3-4007-B446-3ED381E899AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{96175735-953B-4E84-8142-020DB8201DEE} = {7FABF99B-AB6B-49C4-9A57-78ACDD68E229}
 		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
 		{CF1E7BB3-13D3-4007-B446-3ED381E899AB} = {A5BCA3BE-4A54-4D62-AD59-3FBDD5CF2A00}
+		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E7B9344-6DE8-43DA-8CD0-B70E0ACEA7D6}

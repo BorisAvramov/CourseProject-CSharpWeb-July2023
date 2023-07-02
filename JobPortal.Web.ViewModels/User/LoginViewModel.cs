@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.ViewModels.User
 {
-    public class RegisterViewModel
+    public class LoginViewModel
     {
-       
         [Required]
         [EmailAddress]
         public string Email { get; set; } = null!;
@@ -17,14 +16,5 @@ namespace JobPortal.Web.ViewModels.User
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
-
-
-        [Required]
-        [Compare(nameof(Password))]
-        [DataType(DataType.Password)]
-
-        public string ConfirmPassword { get; set; } = null!;
-
-
     }
 }
