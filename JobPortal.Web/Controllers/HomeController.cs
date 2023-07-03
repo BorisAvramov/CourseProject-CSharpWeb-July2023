@@ -11,10 +11,12 @@ namespace JobPortal.Web.Controllers
     public class HomeController : BaseController
     {
         private readonly ICompanyService companyService;
+        private readonly IApplicantService applicantService;
 
-        public HomeController(ICompanyService _companyService)
+        public HomeController(ICompanyService _companyService, IApplicantService _applicantService)
         {
             this.companyService = _companyService;
+            this.applicantService = _applicantService;
         }
 
         
@@ -26,10 +28,16 @@ namespace JobPortal.Web.Controllers
             {
                 string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 bool IsCompany = await companyService.CompanyExistsByUserId(userId);
+                bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
 
                 if (IsCompany)
                 {
                     return View("CompanyIndex");
+                }
+                if (isApplicant)
+                {
+                    return View("ApplicantIndex");
+
                 }
 
                 //return RedirectToAction("All", "Movies");

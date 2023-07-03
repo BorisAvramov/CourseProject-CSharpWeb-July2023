@@ -17,7 +17,7 @@ namespace JobPortal.Services.Data
         {
             bool isCompanyUser = await dbContext
                 .Companies
-                .AnyAsync(a => a.ApplicationUserId.ToString() == userId);
+                .AnyAsync(c => c.ApplicationUserId.ToString() == userId);
 
             return isCompanyUser;
         }

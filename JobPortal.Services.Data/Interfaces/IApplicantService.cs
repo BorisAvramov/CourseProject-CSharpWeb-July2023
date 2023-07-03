@@ -8,7 +8,7 @@ namespace JobPortal.Services.Data.Interfaces
 {
     public interface IApplicantService
     {
-        Task<bool> CompanyExistsByUserId(string userId);
+        Task<bool> ApplicantExistsByUserId(string userId);
 
     }
 }
