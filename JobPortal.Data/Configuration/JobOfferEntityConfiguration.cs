@@ -52,6 +52,32 @@ namespace JobPortal.Data.Configuration
                .OnDelete(DeleteBehavior.Restrict);
 
 
+            builder.HasData(this.GenerateJobOffers());
+
         }
+         private JobOffer[] GenerateJobOffers()
+        {
+
+            ICollection<JobOffer> jobOffers = new HashSet<JobOffer>();
+
+            JobOffer jobOffer = new JobOffer()
+            {
+                Name = "C# .NET Developer",
+                Description = "As a .NET Developer your primary focus will be the development of software components using C# (.NET Core/.NET Standard wirh.The role of a . NET developer is to develop, improve, troubleshoot, and maintain computer software applications. You are expected to plan, design, and develop new feature functionality of a software application, and identify, debug, and troubleshoot defects.",
+                ProgrammingLanguageId = 1,
+                TownId = 2,
+                LevelId = 1,
+                JobTypeId = 2,
+                CompanyId = Guid.Parse("9AC7482A-10CE-4D60-9D3B-4CCF2724887B") // Company Id
+
+
+
+
+            };
+            jobOffers.Add(jobOffer);
+
+            return jobOffers.ToArray();
+        }
+
     }
 }

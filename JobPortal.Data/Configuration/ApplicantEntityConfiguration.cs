@@ -46,7 +46,7 @@ namespace JobPortal.Data.Configuration
 
             Applicant applicant = new Applicant()
             {
-                
+                Id = Guid.Parse("4E2A1953-BAB0-4614-9279-F89C50448ED8"),
                 FirstName = "Boris",
                 LastName = "Avramov",
                 ImgUrl = "~/img/applicants/b.a.jpg",

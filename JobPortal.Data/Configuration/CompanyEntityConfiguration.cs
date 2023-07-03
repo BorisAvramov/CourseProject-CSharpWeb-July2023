@@ -17,8 +17,8 @@ namespace JobPortal.Data.Configuration
                 .Property(c => c.IsDeleted)
                 .HasDefaultValue(false);
 
-            builder.HasData(this.GenerateCompanies ());
-          
+            builder.HasData(this.GenerateCompanies());
+
         }
 
         private Company[] GenerateCompanies()
@@ -28,6 +28,7 @@ namespace JobPortal.Data.Configuration
 
             Company company = new Company()
             {
+                Id = Guid.Parse("9AC7482A-10CE-4D60-9D3B-4CCF2724887B"),
                 Name = "Software University",
                 ImageUrl = "~/img/topEmlpoyers/SoftUni.png",
                 Phone = "+359111111111",
