@@ -49,6 +49,7 @@ namespace JobPortal.Data.Configuration
                 Id = Guid.Parse("4E2A1953-BAB0-4614-9279-F89C50448ED8"),
                 FirstName = "Boris",
                 LastName = "Avramov",
+                Phone = "+359666666666",
                 ImgUrl = "~/img/applicants/b.a.jpg",
                 TownId = 2,
                 ProgrammingLanguageId = 1,

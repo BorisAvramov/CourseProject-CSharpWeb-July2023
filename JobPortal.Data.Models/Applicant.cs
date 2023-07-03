@@ -34,6 +34,10 @@ namespace JobPortal.Data.Models
         [Required]
         public string LastName { get; set; } = null!;
 
+
+        [Required]
+        public string Phone { get; set; } = null!;
+
         [Required]
         public string ImgUrl { get; set; } = null!;
 
