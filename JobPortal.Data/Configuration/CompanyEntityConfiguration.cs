@@ -17,8 +17,31 @@ namespace JobPortal.Data.Configuration
                 .Property(c => c.IsDeleted)
                 .HasDefaultValue(false);
 
-
+            builder.HasData(this.GenerateCompanies ());
           
         }
+
+        private Company[] GenerateCompanies()
+        {
+
+            ICollection<Company> companies = new HashSet<Company>();
+
+            Company company = new Company()
+            {
+                Name = "Software University",
+                ImageUrl = "~/img/topEmlpoyers/SoftUni.png",
+                Phone = "+359111111111",
+                Address = "78 Alexander Malinov Blvd., fl. 1",
+                Description = "Software University Ltd. is a private educational institution for practical training of programmers and IT specialists.",
+                ApplicationUserId = Guid.Parse("90489BF2-B2D3-40D9-893A-BD907ED03A98"), // AspNetUser Id
+                
+                
+
+            };
+            companies.Add(company);
+
+            return companies.ToArray();
+        }
+
     }
 }

@@ -35,8 +35,32 @@ namespace JobPortal.Data.Configuration
               .HasForeignKey(a => a.ProgrammingLanguageId)
               .OnDelete(DeleteBehavior.Restrict);
 
-            
+            builder.HasData(this.GenerateApplicants());
 
+        }
+
+        private Applicant[] GenerateApplicants()
+        {
+
+            ICollection<Applicant> applicants = new HashSet<Applicant>();
+
+            Applicant applicant = new Applicant()
+            {
+                
+                FirstName = "Boris",
+                LastName = "Avramov",
+                ImgUrl = "~/img/applicants/b.a.jpg",
+                TownId = 2,
+                ProgrammingLanguageId = 1,
+                LevelId = 1,
+                ApplicationUserId = Guid.Parse("0ED38564-3050-4A21-AF48-D17CD6CD4C60")
+                
+
+
+            };
+            applicants.Add(applicant);
+
+            return applicants.ToArray();
         }
     }
 }

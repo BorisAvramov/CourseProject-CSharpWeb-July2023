@@ -17,6 +17,57 @@ namespace JobPortal.Data.Configuration
                .Property(pl => pl.IsDeleted)
                .HasDefaultValue(false);
 
+            builder.HasData(this.GenerateProgrammingLanguagesProgrammingLanguages());
+
+        }
+
+        private ProgrammingLanguage[] GenerateProgrammingLanguagesProgrammingLanguages()
+        {
+            ICollection<ProgrammingLanguage> ProgrammingLanguages = new HashSet<ProgrammingLanguage>();
+
+            ProgrammingLanguage ProgrammingLanguage;
+
+            ProgrammingLanguage = new ProgrammingLanguage()
+            {
+                Id = 1,
+                Name = "C#",
+                ImageUrl = "~/img/programmingLanguages/icons8-c-48.png",
+                
+
+            };
+
+            ProgrammingLanguages.Add(ProgrammingLanguage);
+
+            ProgrammingLanguage = new ProgrammingLanguage()
+            {
+                Id = 2,
+                Name = "JS",
+                ImageUrl = "~/img/programmingLanguages/icons8-js-48.png"
+            };
+
+            ProgrammingLanguages.Add(ProgrammingLanguage);
+
+            ProgrammingLanguage = new ProgrammingLanguage()
+            {
+                Id = 3,
+                Name = "Python",
+                ImageUrl = "~/img/programmingLanguages/icons8-python-48.png"
+            };
+
+            ProgrammingLanguages.Add(ProgrammingLanguage); 
+
+            ProgrammingLanguage = new ProgrammingLanguage()
+            {
+                Id = 4,
+                Name = "PHP",
+                ImageUrl = "~/img/programmingLanguages/icons8-php-40.png"
+            };
+
+            ProgrammingLanguages.Add(ProgrammingLanguage); 
+           
+
+
+            return ProgrammingLanguages.ToArray();
 
         }
     }

@@ -16,7 +16,42 @@ namespace JobPortal.Data.Configuration
             builder
                .Property(l => l.IsDeleted)
                .HasDefaultValue(false);
+            builder.HasData(this.GenerateLevels());
+        }
+
+        private Level[] GenerateLevels()
+        {
+            ICollection<Level> levels = new HashSet<Level>();
+
+            Level level;
+
+            level = new Level()
+            {
+                Id = 1,
+                Name = "Junior",
+            };
+
+            levels.Add(level);
+
+            level = new Level()
+            {
+                Id = 2,
+                Name = "Mid",
+            };
+
+            levels.Add(level);
+
+            level = new Level()
+            {
+                Id = 3,
+                Name = "Senior",
+            };
+
+            levels.Add(level); 
+
+            return levels.ToArray();
 
         }
+
     }
 }

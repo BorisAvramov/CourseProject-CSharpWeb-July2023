@@ -17,6 +17,40 @@ namespace JobPortal.Data.Configuration
                .Property(jt => jt.IsDeleted)
                .HasDefaultValue(false);
 
+            builder.HasData(this.GenerateJobTypes());
+        }
+
+        private JobType[] GenerateJobTypes()
+        {
+            ICollection<JobType> jobTypes = new HashSet<JobType>();
+
+            JobType jobType;
+
+            jobType = new JobType()
+            {
+                Id = 1,
+                TypeName = "Office",
+            };
+            jobTypes.Add(jobType);
+
+
+            jobType = new JobType()
+            {
+                Id = 2,
+                TypeName = "Remote",
+            };
+            jobTypes.Add(jobType); 
+
+
+            jobType = new JobType()
+            {
+                Id = 3,
+                TypeName = "Hybrid",
+            };
+            jobTypes.Add(jobType); 
+
+
+            return jobTypes.ToArray();
 
         }
     }

@@ -16,6 +16,67 @@ namespace JobPortal.Data.Configuration
             builder
               .Property(t => t.IsDeleted)
               .HasDefaultValue(false);
+
+            builder.HasData(this.GenerateTowns());
+        }
+
+
+        private Town[] GenerateTowns()
+        {
+            ICollection<Town> towns = new HashSet<Town>();
+
+            Town town;
+
+            town = new Town()
+            {
+                Id = 1,
+                Name = "Sofia",
+            };
+
+            towns.Add(town);
+
+            town = new Town()
+            {
+                Id = 2,
+                Name = "Varna",
+            };
+
+            towns.Add(town); 
+            
+            town = new Town()
+            {
+                Id = 3,
+                Name = "Burgas",
+            };
+
+            towns.Add(town); 
+            
+            town = new Town()
+            {
+                Id = 4,
+                Name = "Plovdiv",
+            };
+
+            towns.Add(town); 
+            
+            town = new Town()
+            {
+                Id = 5,
+                Name = "Ruse",
+            };
+
+            towns.Add(town); 
+            
+            town = new Town()
+            {
+                Id = 6,
+                Name = "Stara Zagora",
+            };
+
+            towns.Add(town);
+
+            return towns.ToArray();
+
         }
     }
 }
