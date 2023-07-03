@@ -15,7 +15,6 @@ namespace JobPortal.Data.Models
     {
         public Town()
         {
-            this.TownCompanies = new HashSet<CompanyTown>();
             this.JobOffers = new HashSet<JobOffer>();
             this.Applicants = new HashSet<Applicant>();
         }
@@ -36,8 +35,7 @@ namespace JobPortal.Data.Models
         [Comment("Job offers published for that town")]
         public virtual  ICollection<JobOffer>  JobOffers { get; set; }
 
-        [Comment("Companies which have offices in that town -> many to many relation")]
-        public virtual ICollection<CompanyTown> TownCompanies { get; set; }
+        
 
         [Comment("Applicants searching job in that town")]
         public virtual ICollection<Applicant> Applicants { get; set; }

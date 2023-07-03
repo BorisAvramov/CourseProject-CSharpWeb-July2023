@@ -62,6 +62,7 @@ namespace JobPortal.Data.Configuration
 
             JobOffer jobOffer = new JobOffer()
             {
+                Id = Guid.Parse("FEA40DF4-A755-4A4E-8185-34EB17D90EA1"),
                 Name = "C# .NET Developer",
                 Description = "As a .NET Developer your primary focus will be the development of software components using C# (.NET Core/.NET Standard wirh.The role of a . NET developer is to develop, improve, troubleshoot, and maintain computer software applications. You are expected to plan, design, and develop new feature functionality of a software application, and identify, debug, and troubleshoot defects.",
                 ProgrammingLanguageId = 1,

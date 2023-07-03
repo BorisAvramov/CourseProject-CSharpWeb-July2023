@@ -19,7 +19,6 @@ namespace JobPortal.Data.Models
         public Company()
         {
             this.Id = Guid.NewGuid();
-            this.CompanyTowns = new HashSet<CompanyTown>();
             this.JobOffers = new HashSet<JobOffer>();
         }
 
@@ -71,8 +70,7 @@ namespace JobPortal.Data.Models
         public virtual ICollection<JobOffer> JobOffers { get; set; }
 
 
-        [Comment("Towns where company has offices -> many to many relation")]
-        public virtual ICollection<CompanyTown> CompanyTowns { get; set; } = null!;
+    
 
     }
 }

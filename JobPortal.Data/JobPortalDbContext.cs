@@ -21,7 +21,8 @@ namespace JobPortal.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Town> Towns { get; set; } = null!;
-        public DbSet<CompanyTown> CompaniesTowns { get; set; } = null!;
+
+        //public DbSet<CompanyTown> CompaniesTowns { get; set; } = null!;
         public DbSet<JobType> JobTypes { get; set; } = null!;
         public DbSet<Level> Levels { get; set; } = null!;
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; } = null!;
