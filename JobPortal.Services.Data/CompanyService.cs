@@ -1,5 +1,7 @@
 ﻿using JobPortal.Data;
+using JobPortal.Data.Models;
 using JobPortal.Services.Data.Interfaces;
+using JobPortal.Web.ViewModels.Company;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobPortal.Services.Data
@@ -13,6 +15,15 @@ namespace JobPortal.Services.Data
             this.dbContext = _dbContext;
         }
 
+        public async Task<bool> CompanyExistsByPhoneNumber(string phoneNumber)
+        {
+            bool isCompanyUser = await dbContext
+                .Companies.AnyAsync(c => c.Phone == phoneNumber);
+
+            return isCompanyUser;
+
+        }
+
         public async Task<bool> CompanyExistsByUserId(string userId)
         {
             bool isCompanyUser = await dbContext
@@ -20,6 +31,27 @@ namespace JobPortal.Services.Data
                 .AnyAsync(c => c.ApplicationUserId.ToString() == userId);
 
             return isCompanyUser;
+        }
+
+        
+
+        public async Task Create(BecomeRecruiterFormModel model, string userId)
+        {
+            Company company = new Company()
+            {
+                Name = model.Name,
+                Phone = model.Phone,
+                Description = model.Description,
+                Address = model.Address,
+                ImageUrl= model.ImageUrl,
+                ApplicationUserId = Guid.Parse(userId)
+
+            };
+
+            await dbContext.Companies.AddAsync(company);
+            await dbContext.SaveChangesAsync();
+
+
         }
     }
 }

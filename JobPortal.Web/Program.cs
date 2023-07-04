@@ -32,6 +32,8 @@ namespace JobPortal.Web
                 
 
             })
+                //.AddDefaultTokenProviders()
+                //.AddRoles<IdentityRole>() 
                 .AddEntityFrameworkStores<JobPortalDbContext>();
 
 
@@ -66,6 +68,8 @@ namespace JobPortal.Web
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
+
+
 
             app.Run();
         }

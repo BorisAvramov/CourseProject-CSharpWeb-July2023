@@ -17,6 +17,7 @@ namespace JobPortal.Web.Infrastructures.Extensions
 
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IApplicantService, ApplicantService>();
+            services.AddScoped<IRoleService, RoleService>();
 
         }
     }
