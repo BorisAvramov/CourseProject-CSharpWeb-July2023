@@ -1,4 +1,8 @@
-﻿
+﻿@using System.Security.Claims;
+@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
+@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,51 +35,68 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            @*applicant/company*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="All">All Job Offers</a>
-                        </li>
-                        <li class="nav-item">
-                            @*applicant*@
+                        @{
+                            string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                            bool IsCompany = await companyService.CompanyExistsByUserId(userId);
+                            bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
+                            if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant)
+                            {
+                                <li class="nav-item">
+                                    @*applicant/company*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="All">All Job Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*applicant*@
 
-                            <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="MyJobOffersAppliedFor">My Job Offers</a>
-                        </li>
-                        <li class="nav-item">
-                            @*applicant*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Company" asp-action="All">All Companies</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*applicant*@
 
-                            <a class="nav-link text-white" asp-area="" asp-controller="Company" asp-action="All">All Companies</a>
-                        </li>
-                        <li class="nav-item">
-                            @*aaplicant*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="MyJobOffersAppliedFor">My Job Offers</a>
+                                </li>
 
-                            <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="All">Search Job</a>
-                        </li>
-                        <li class="nav-item">
-                            @*company*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="Applicant" asp-action="All">All Applicants</a>
-                        </li>
-                        <li class="nav-item">
-                            @*company*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="MyPublishedJobOffers">My Published Job Offers</a>
-                        </li>
-                        <li class="nav-item">
-                            @*company*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="Add">Add Job Offer</a>
-                        </li>
-                        <li class="nav-item">
-                            @*company*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="Applicant" asp-action="Search">Search Applicant</a>
-                        </li>
-                        <li class="nav-item">
-                            @*applicationUser*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="Company" asp-action="Become">Become Recruiter</a>
-                        </li>
-                        <li class="nav-item">
-                            @*applicationUser*@
-                            <a class="nav-link text-white" asp-area="" asp-controller="Applicant" asp-action="Become">Become Applicant</a>
-                        </li>
-                      
+
+                            }
+                            else if ((User?.Identity?.IsAuthenticated) ?? false && IsCompany)
+                            {
+                                <li class="nav-item">
+                                    @*applicant/company*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="All">All Job Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*company*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Applicant" asp-action="All">All Applicants</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*company*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="MyPublishedJobOffers">My Published Job Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*company*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="JobOffer" asp-action="Add">Add Job Offer</a>
+                                </li>
+
+
+                            }
+                            else if (User?.Identity?.IsAuthenticated ?? false)
+                            {
+
+                                <li class="nav-item">
+                                    @*applicationUser*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Company" asp-action="Become">Become Recruiter</a>
+                                </li>
+                                <li class="nav-item">
+                                    @*applicationUser*@
+                                    <a class="nav-link text-white" asp-area="" asp-controller="Applicant" asp-action="Become">Become Applicant</a>
+                                </li>
+
+                            }
+
+                        }
+
                        
+ 
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
