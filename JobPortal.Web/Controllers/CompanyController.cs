@@ -94,7 +94,7 @@ namespace JobPortal.Web.Controllers
 
 
 
-            return RedirectToAction("Inex", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

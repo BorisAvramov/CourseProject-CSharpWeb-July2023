@@ -1,0 +1,99 @@
+﻿@model BecomeApplicantFormModel
+@{
+    ViewBag.Title = "Become Applicant";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+@*@if (!ViewData.ModelState.IsValid && ViewData.ModelState["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewData.ModelState["Error"].Errors.First().ErrorMessage
+        </div>
+    }*@
+
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- First Name input -->
+            <div class="form-outline mb-sm-1">
+                <input asp-for="@Model.FirstName" type="text" id="form4Example1" class="form-control" />
+                <label asp-for="@Model.FirstName" class="form-label" for="form4Example1"></label>
+                <span asp-validation-for="@Model.FirstName" class="small text-danger"></span>
+
+
+
+            </div>
+            <!-- Last Name input -->
+
+            <div class="form-outline mb-sm-1">
+                <input asp-for="@Model.LastName" type="text" id="form4Example1" class="form-control" />
+                <label asp-for="@Model.LastName" class="form-label" for="form4Example1"></label>
+                <span asp-validation-for="@Model.LastName" class="small text-danger"></span>
+
+            </div>
+
+            <!-- Img Url -->
+            <div class="form-outline mb-sm-1">
+                <input asp-for="@Model.ImgUrl" type="url" id="form4Example2" class="form-control" placeholder="https://" />
+                <label asp-for="@Model.ImgUrl" class="form-label" for="form4Example2"></label>
+                <span asp-validation-for="@Model.ImgUrl" class="small text-danger"></span>
+
+            </div>
+            <!-- Phone -->
+            <div class="form-outline mb-sm-1">
+                <input asp-for="@Model.Phone" type="tel" id="form4Example2" class="form-control" placeholder="+359888888888" />
+                <label asp-for="@Model.Phone" class="form-label" for="form4Example2"></label>
+                <span asp-validation-for="@Model.Phone" class="small text-danger"></span>
+
+            </div>
+            <!-- Town -->
+            <div class="mb-sm-1">
+                <select asp-for="@Model.TownId" class="form-control">
+                    @foreach (var town in Model.Towns)
+                    {
+                        <option value="@town.Id">@town.Name</option>
+                    }
+                </select>
+                <label asp-for="@Model.TownId" class="form-label"></label>
+
+                <span asp-validation-for="@Model.TownId" class="text-danger"></span>
+            </div>
+            <!-- Level -->
+            <div class="mb-sm-1">
+                <select asp-for="@Model.LevelId" class="form-control">
+                    @foreach (var level in Model.Levels)
+                    {
+                        <option value="@level.Id">@level.Name</option>
+                    }
+                </select>
+                <label asp-for="@Model.LevelId" class="form-label"></label>
+                <span asp-validation-for="@Model.LevelId" class="text-danger"></span>
+            </div>
+            <!-- Programming Language -->
+            <div class="mb-sm-1">
+                <select asp-for="@Model.ProgrammingLanguageId" class="form-control">
+                    @foreach (var pl in Model.ProgrammingLanguages)
+                    {
+                        <option value="@pl.Id">@pl.Name</option>
+                    }
+                </select>
+                <label asp-for="@Model.ProgrammingLanguageId" class="form-label"></label>
+
+                <span asp-validation-for="@Model.ProgrammingLanguageId" class="text-danger"></span>
+            </div>
+
+
+
+            <!-- Submit button -->
+            <button type="submit" asp-controller="Applicant" asp-action="Become" class="btn btn-primary btn-block mb-4">Send</button>
+        </form>
+    </div>
+
+</div>>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

@@ -17,10 +17,10 @@ namespace JobPortal.Services.Data
 
         public async Task<bool> CompanyExistsByPhoneNumber(string phoneNumber)
         {
-            bool isCompanyUser = await dbContext
+            bool result = await dbContext
                 .Companies.AnyAsync(c => c.Phone == phoneNumber);
 
-            return isCompanyUser;
+            return result;
 
         }
 

@@ -1,5 +1,7 @@
 ﻿using JobPortal.Data;
+using JobPortal.Data.Models;
 using JobPortal.Services.Data.Interfaces;
+using JobPortal.Web.ViewModels.Applicant;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,15 @@ namespace JobPortal.Services.Data
             this.dbContext = _dbContext;
         }
 
+        public async Task<bool> ApplicantExistsByPhoneNumber(string phoneNumber)
+        {
+            bool result = await dbContext
+               .Applicants.AnyAsync(a => a.Phone == phoneNumber);
+
+            return result;
+
+        }
+
         public async Task<bool> ApplicantExistsByUserId(string userId)
         {
 
@@ -26,6 +37,45 @@ namespace JobPortal.Services.Data
                .AnyAsync(a => a.ApplicationUserId.ToString() == userId);
 
             return isApplicantUser;
+        }
+
+        public async Task Create(BecomeApplicantFormModel model, string userId)
+        {
+            Applicant applicant = new Applicant()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Phone= model.Phone,
+                ImgUrl = model.ImgUrl,
+                TownId = model.TownId,
+                LevelId = model.LevelId,
+                ProgrammingLanguageId = model.ProgrammingLanguageId,
+                ApplicationUserId = Guid.Parse(userId)
+
+            };
+
+            await dbContext.Applicants.AddAsync(applicant);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task<IEnumerable<Level>> GetLevels()
+        {
+            return await dbContext
+                            .Levels.ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProgrammingLanguage>> GetProgrammingLanguages()
+        {
+            return await dbContext
+                .ProgrammingLanguages.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Town>> GetTowns()
+        {
+            return await dbContext
+                .Towns.ToListAsync();
+
         }
     }
 }
