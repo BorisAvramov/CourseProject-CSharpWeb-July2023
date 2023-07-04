@@ -14,21 +14,28 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
-  background-color:ghostwhite
+    margin-bottom: 60px;
+    background-color: ghostwhite;
+    
 }
 
 body header nav {
-        background-color:yellowgreen;
+        background-color:silver;
 }
 
 body  header  nav  a:hover {
-        text-decoration:overline;
+        text-decoration:underline;
 }
 
 
 body > div > main > div > h2 {
         color: dodgerblue
 }
+
+body > footer > div.text-center.p-3{
+    color:brown
+}
+
+    
 
 
