@@ -1,4 +1,5 @@
-﻿using JobPortal.Services.Data.Interfaces;
+﻿using JobPortal.Data.Models;
+using JobPortal.Services.Data.Interfaces;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.Company;
 using Microsoft.AspNetCore.Mvc;
@@ -85,12 +86,18 @@ namespace JobPortal.Web.Controllers
             {
                 this.TempData[ErrorMessage] = "Applicant with the provided phone number already exists!";
                 this.ModelState.AddModelError(nameof(model.Phone), "Applicant with the provided phone number already exists!");
+                model.Towns = await selectOptionCollectionService.GetTowns();
+                model.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+                model.Levels = await selectOptionCollectionService.GetLevels();
                 return View(model);
 
             }
 
             if (!ModelState.IsValid)
             {
+                model.Towns = await selectOptionCollectionService.GetTowns();
+                model.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+                model.Levels = await selectOptionCollectionService.GetLevels();
                 return View(model);
             }
 

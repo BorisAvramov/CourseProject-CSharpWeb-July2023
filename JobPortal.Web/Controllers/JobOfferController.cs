@@ -2,6 +2,7 @@
 using JobPortal.Services.Data.Interfaces;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.JobOffer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -25,6 +26,12 @@ namespace JobPortal.Web.Controllers
 
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> All()
+        {
+            //TODO
+            return this.Ok();
+        }
 
 
         [HttpGet]
@@ -74,6 +81,11 @@ namespace JobPortal.Web.Controllers
           
             if (!ModelState.IsValid)
             {
+                model.Towns = await selectOptionCollectionService.GetTowns();
+                model.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+                model.Levels = await selectOptionCollectionService.GetLevels();
+                model.JobTypes = await selectOptionCollectionService.GetJobTypes();
+
                 return View(model);
             }
 
@@ -98,7 +110,7 @@ namespace JobPortal.Web.Controllers
 
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
         }
     }
 }

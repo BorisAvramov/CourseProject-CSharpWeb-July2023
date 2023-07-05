@@ -88,6 +88,7 @@ namespace JobPortal.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                
                 return View(model);
             }
 
