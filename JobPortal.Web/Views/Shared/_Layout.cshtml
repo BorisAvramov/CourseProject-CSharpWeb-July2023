@@ -58,7 +58,7 @@
 
 
                             }
-                            else if ((User?.Identity?.IsAuthenticated) ?? false && IsCompany)
+                            else if ((User?.Identity?.IsAuthenticated ?? false) && IsCompany)
                             {
                                 <li class="nav-item">
                                     @*applicant/company*@
