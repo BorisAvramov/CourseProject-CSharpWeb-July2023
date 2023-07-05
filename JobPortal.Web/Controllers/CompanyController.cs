@@ -16,24 +16,35 @@ namespace JobPortal.Web.Controllers
     {
 
         private readonly ICompanyService companyService;
+        private readonly IApplicantService applicantService;
+
         private readonly IRoleService roleService;
 
-        public CompanyController(ICompanyService _companyService, IRoleService _roleService)
+        public CompanyController(ICompanyService _companyService, IRoleService _roleService, IApplicantService _applicantService)
         {
             this.companyService = _companyService;
             this.roleService = _roleService;
+            this.applicantService = _applicantService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Become()
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
 
             bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
             if (IsCompany)
             {
                 this.TempData[ErrorMessage] = "You are already a recruiter!";
+
+                return RedirectToAction("Index", "Home");
+            }
+            if (IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Applicant cannot become a recruiter!";
 
                 return RedirectToAction("Index", "Home");
             }
@@ -48,7 +59,9 @@ namespace JobPortal.Web.Controllers
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
+
             bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
             if (IsCompany)
             {
@@ -56,7 +69,12 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+            if (IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Applicant cannot become a recruiter!";
 
+                return RedirectToAction("Index", "Home");
+            }
 
             bool isPhoneNumberTaken = await this.companyService.CompanyExistsByPhoneNumber(model.Phone);
 

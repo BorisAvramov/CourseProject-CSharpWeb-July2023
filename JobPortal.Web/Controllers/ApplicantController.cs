@@ -11,12 +11,16 @@ namespace JobPortal.Web.Controllers
     public class ApplicantController : BaseController
     {
         private readonly IApplicantService applicantService;
+        private readonly ICompanyService companyService;
+        private readonly ISelectOptionCollectionService selectOptionCollectionService;
         private readonly IRoleService roleService;
 
-        public ApplicantController(IApplicantService _applicantService, IRoleService _roleService)
+        public ApplicantController(IApplicantService _applicantService, ICompanyService _companyService, IRoleService _roleService, ISelectOptionCollectionService _selectOptionCollectionService )
         {
             this.applicantService = _applicantService;
+            this.companyService= _companyService;
             this.roleService = _roleService;
+            this.selectOptionCollectionService = _selectOptionCollectionService;
         }
 
         [HttpGet]
@@ -25,6 +29,8 @@ namespace JobPortal.Web.Controllers
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+            bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
+
 
             if (IsApplicant)
             {
@@ -32,12 +38,18 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+            if (IsCompany)
+            {
+                this.TempData[ErrorMessage] = "Recruiter cannot become an applicant!";
+
+                return RedirectToAction("Index", "Home");
+            }
 
             BecomeApplicantFormModel model = new BecomeApplicantFormModel()
             {
-                Towns = await applicantService.GetTowns(),
-                ProgrammingLanguages = await applicantService.GetProgrammingLanguages(),
-                Levels = await applicantService.GetLevels()
+                Towns = await selectOptionCollectionService.GetTowns(),
+                ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages(),
+                Levels = await selectOptionCollectionService.GetLevels()
             };
 
 
@@ -50,10 +62,18 @@ namespace JobPortal.Web.Controllers
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+            bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
+
 
             if (IsApplicant)
             {
-                this.TempData[ErrorMessage] = "You are already a recruiter!";
+                this.TempData[ErrorMessage] = "You are already an applicant!";
+
+                return RedirectToAction("Index", "Home");
+            }
+            if (IsCompany)
+            {
+                this.TempData[ErrorMessage] = "Recruiter cannot become an applicant!";
 
                 return RedirectToAction("Index", "Home");
             }

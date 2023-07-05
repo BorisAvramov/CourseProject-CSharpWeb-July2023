@@ -39,6 +39,13 @@ namespace JobPortal.Web
 
             builder.Services.AddApplicationServices();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/Login";
+
+            });
+
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

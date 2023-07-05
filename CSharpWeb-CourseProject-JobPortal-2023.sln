@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Services.Data", "JobPortal.Services.Data\JobPortal.Services.Data.csproj", "{CF1E7BB3-13D3-4007-B446-3ED381E899AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobPortal.Web.Infrastructures", "JobPortal.Web.Infrastructures\JobPortal.Web.Infrastructures.csproj", "{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Web.Infrastructures", "JobPortal.Web.Infrastructures\JobPortal.Web.Infrastructures.csproj", "{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

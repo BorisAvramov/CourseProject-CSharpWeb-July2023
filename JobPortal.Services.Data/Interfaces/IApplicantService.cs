@@ -18,9 +18,7 @@ namespace JobPortal.Services.Data.Interfaces
 
         Task Create(BecomeApplicantFormModel model, string userId);
 
-        Task<IEnumerable<Town>> GetTowns();
-        Task<IEnumerable<ProgrammingLanguage>> GetProgrammingLanguages();
-        Task<IEnumerable<Level>> GetLevels();
+       
 
     }
 }

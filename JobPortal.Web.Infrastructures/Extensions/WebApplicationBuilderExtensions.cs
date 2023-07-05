@@ -14,10 +14,11 @@ namespace JobPortal.Web.Infrastructures.Extensions
 
         public static void AddApplicationServices(this IServiceCollection services)
         {
-
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IApplicantService, ApplicantService>();
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ISelectOptionCollectionService, SelectOptionCollectionService>();
+            services.AddScoped<IJobOfferService, JobOfferService>();
 
         }
     }

@@ -1,4 +1,5 @@
-﻿using JobPortal.Web.ViewModels.Company;
+﻿using JobPortal.Data.Models;
+using JobPortal.Web.ViewModels.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace JobPortal.Services.Data.Interfaces
         Task<bool> CompanyExistsByPhoneNumber(string phoneNumber);
 
         Task Create(BecomeRecruiterFormModel model, string userId);
+        Task <Company> GetCompanyByApplicationUserId( string userId);
 
     }
 }

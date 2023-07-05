@@ -59,23 +59,6 @@ namespace JobPortal.Services.Data
 
         }
 
-        public async Task<IEnumerable<Level>> GetLevels()
-        {
-            return await dbContext
-                            .Levels.ToListAsync();
-        }
-
-        public async Task<IEnumerable<ProgrammingLanguage>> GetProgrammingLanguages()
-        {
-            return await dbContext
-                .ProgrammingLanguages.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Town>> GetTowns()
-        {
-            return await dbContext
-                .Towns.ToListAsync();
-
-        }
+      
     }
 }

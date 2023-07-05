@@ -53,5 +53,17 @@ namespace JobPortal.Services.Data
 
 
         }
+
+        public async Task<Company> GetCompanyByApplicationUserId(string userId)
+        {
+             Company? company  = await dbContext
+                .Companies
+                .FirstOrDefaultAsync(c => c.ApplicationUserId.ToString() == userId);
+
+            return company;
+
+
+
+        }
     }
 }
