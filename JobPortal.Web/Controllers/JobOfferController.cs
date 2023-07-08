@@ -2,6 +2,7 @@
 using JobPortal.Services.Data.Interfaces;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.JobOffer;
+using JopPortal.Services.Data.Models.JobOffer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -26,11 +27,21 @@ namespace JobPortal.Web.Controllers
 
         }
 
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllJobOffersQueryModel queryModel)
         {
-            //TODO
-            return this.Ok();
+             
+            AllJobOffersFilteredAndPagedServiceModel serviceModel =
+                await this.jobOfferService.All(queryModel);
+
+            queryModel.JobOffers = serviceModel.JobOffers;
+            queryModel.TotalJobOffers = serviceModel.TotalJobOffersCount;
+            queryModel.JobTypes = await selectOptionCollectionService.GetJobTypes();
+            queryModel.Levels = await selectOptionCollectionService.GetLevels();
+            queryModel.Towns = await selectOptionCollectionService.GetTowns();
+            queryModel.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+            return View(queryModel);
         }
 
 

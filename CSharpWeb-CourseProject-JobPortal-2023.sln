@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Services.Data", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobPortal.Web.Infrastructures", "JobPortal.Web.Infrastructures\JobPortal.Web.Infrastructures.csproj", "{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JopPortal.Services.Data.Models", "JopPortal.Services.Data.Models\JopPortal.Services.Data.Models.csproj", "{A4F4C125-7A89-4B43-997D-07B20D25ECFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4F4C125-7A89-4B43-997D-07B20D25ECFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4F4C125-7A89-4B43-997D-07B20D25ECFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4F4C125-7A89-4B43-997D-07B20D25ECFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4F4C125-7A89-4B43-997D-07B20D25ECFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{C2F81E5E-2DC3-4666-84E7-D182B8E2D154} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
 		{CF1E7BB3-13D3-4007-B446-3ED381E899AB} = {A5BCA3BE-4A54-4D62-AD59-3FBDD5CF2A00}
 		{E70F8DDE-F1B6-4671-8DA7-9BDADE85F8CF} = {179D7AAF-8A45-481B-B55C-B20F357E876E}
+		{A4F4C125-7A89-4B43-997D-07B20D25ECFF} = {A5BCA3BE-4A54-4D62-AD59-3FBDD5CF2A00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E7B9344-6DE8-43DA-8CD0-B70E0ACEA7D6}

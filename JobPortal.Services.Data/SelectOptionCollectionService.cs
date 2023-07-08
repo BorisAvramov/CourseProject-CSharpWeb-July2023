@@ -20,7 +20,9 @@ namespace JobPortal.Services.Data
             this.dbContext = _dbContext;
         }
 
+        
 
+       
 
         public async Task<IEnumerable<JobType>> GetJobTypes()
         {

@@ -1,0 +1,130 @@
+﻿@model AllJobOffersQueryModel
+
+@{
+    ViewBag.Title = "All Job Offers";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="JobType"></label>
+                <select asp-for="JobType" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var jobType in Model.JobTypes)
+                    {
+                        <option value="@jobType.TypeName">@jobType.TypeName</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Level"></label>
+                <select asp-for="Level" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var level in Model.Levels)
+                    {
+                        <option value="@level.Name">@level.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Town"></label>
+                <select asp-for="Town" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var town in Model.Towns)
+                    {
+                        <option value="@town.Name">@town.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="ProgrammingLanguage"></label>
+                <select asp-for="ProgrammingLanguage" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var programmingLanguage in Model.ProgrammingLanguages)
+                    {
+                        <option value="@programmingLanguage.Name">@programmingLanguage.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="SearchString"></label>
+            <input asp-for="SearchString" class="form-control" placeholder="...">
+        </div>
+        <div class="form-group col-md-3">
+            <div class="form-group">
+                <label asp-for="JobOfferSorting"></label>
+                <select asp-for="JobOfferSorting" class="form-control">
+                    <option value="0">Newest</option>
+                    <option value="1">Oldest</option>
+                    <option value="2">Number of Applicants</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+@{
+    int previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    int  maxPage = (    int)Math.Ceiling((double)Model.TotalJobOffers /
+    Model.JobOffersPerPage);
+
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="JobOffer"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           asp-route-jobType="@Model.JobType"
+           asp-route-level="@Model.Level"
+           asp-route-town="@Model.Town"
+           asp-route-programmingLanguage="@Model.ProgrammingLanguage"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-sorting="@((int)Model.JobOfferSorting)"><<</a>
+    </div>
+    @{
+        bool shouldBextPageBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.JobOffers.Any();
+    }
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+@(shouldBextPageBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="JobOffer"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-jobType="@Model.JobType"
+           asp-route-level="@Model.Level"
+           asp-route-town="@Model.Town"
+           asp-route-programmingLanguage="@Model.ProgrammingLanguage"
+           asp-route-searchString="@Model.SearchString"
+           asp-route-sorting="@((int)Model.JobOfferSorting)">>></a>
+    </div>
+</div>
+@if (!Model.JobOffers.Any())
+{
+    <h2 class="text-center">No houses found by the given criteria!</h2>
+}
+<div class="row">
+    @foreach (var jobOffer in Model.JobOffers)
+    {
+        <partial name="_JobOfferPartial" model="@jobOffer" />
+    }
+</div>

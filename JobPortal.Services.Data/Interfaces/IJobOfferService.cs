@@ -1,4 +1,5 @@
 ﻿using JobPortal.Web.ViewModels.JobOffer;
+using JopPortal.Services.Data.Models.JobOffer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,9 @@ namespace JobPortal.Services.Data.Interfaces
     public interface IJobOfferService
     {
         Task AddJobOffer(JobOfferAddFormViewModel model, string userId );
+        Task <AllJobOffersFilteredAndPagedServiceModel> All(AllJobOffersQueryModel queryModel);
+
+
 
 
     }
