@@ -19,7 +19,7 @@ namespace JobPortal.Data.Configuration
 
             builder
                 .Property(h => h.CreatedOn)
-                .HasDefaultValue(DateTime.UtcNow);
+                .HasDefaultValueSql("GETDATE()");
 
             builder
                .HasOne(jo => jo.Company)

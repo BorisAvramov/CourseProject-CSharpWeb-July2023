@@ -98,15 +98,15 @@
            asp-route-town="@Model.Town"
            asp-route-programmingLanguage="@Model.ProgrammingLanguage"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.JobOfferSorting)"><<</a>
+           asp-route-jobOfferSorting="@((int)Model.JobOfferSorting)"><<</a>
     </div>
     @{
-        bool shouldBextPageBeDisabled = Model.CurrentPage == maxPage ||
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
         !Model.JobOffers.Any();
     }
     <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
         <a class="btn btn-primary
-@(shouldBextPageBeDisabled ? "disabled" : string.Empty)"
+@(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
            asp-controller="JobOffer"
            asp-action="All"
            asp-route-currentPage="@(Model.CurrentPage + 1)"
@@ -115,7 +115,7 @@
            asp-route-town="@Model.Town"
            asp-route-programmingLanguage="@Model.ProgrammingLanguage"
            asp-route-searchString="@Model.SearchString"
-           asp-route-sorting="@((int)Model.JobOfferSorting)">>></a>
+           asp-route-jobOfferSorting="@((int)Model.JobOfferSorting)">>></a>
     </div>
 </div>
 @if (!Model.JobOffers.Any())
