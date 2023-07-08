@@ -12,6 +12,7 @@ namespace JobPortal.Services.Data.Interfaces
     {
         Task AddJobOffer(JobOfferAddFormViewModel model, string userId );
         Task <AllJobOffersFilteredAndPagedServiceModel> All(AllJobOffersQueryModel queryModel);
+        Task <IEnumerable<JobOfferAllViewModel>> AllByCompanyId(string userId);
 
 
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -106,7 +107,7 @@ namespace JobPortal.Services.Data
                 {
                     Id = j.Id.ToString(),
                     Name = j.Name,
-                    CreatedOn = j.CreatedOn.ToString("dd/MM/yyyy"),
+                    CreatedOn = j.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                     Description = j.Description,
                     ProgrammingLanguage = j.ProgrammingLanguage.Name,
                     Level = j.Level.Name,
@@ -130,5 +131,34 @@ namespace JobPortal.Services.Data
             };
   
             }
+
+        public async Task<IEnumerable<JobOfferAllViewModel>> AllByCompanyId(string userId)
+        {
+            Company? company = await companyService.GetCompanyByApplicationUserId(userId);
+
+            IEnumerable<JobOfferAllViewModel> allCompanyJobOffers = await this.dbContext
+                .JobOffers
+                .Where(jo => jo.CompanyId == company.Id)
+                .Select(jo => new JobOfferAllViewModel()
+                {
+                    Id = jo.Id.ToString(),
+                    Name = jo.Name,
+                    CreatedOn = jo.CreatedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                    Description = jo.Description,
+                    ProgrammingLanguage = jo.ProgrammingLanguage.Name,
+                    Town = jo.Town.Name,
+                    Level = jo.Level.Name,
+                    JobType = jo.JobType.TypeName,
+                    Company = jo.Company.Name,
+                    CompanyImageUrl = jo.Company.ImageUrl,
+
+                    JobOfferApplicantsCount = jo.JobOfferApplicants.Count
+
+                })
+                .ToArrayAsync();
+
+            return allCompanyJobOffers;
+
         }
+    }
     }

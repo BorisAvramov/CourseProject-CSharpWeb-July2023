@@ -1,0 +1,22 @@
+﻿@model List<JobOfferAllViewModel>
+@{
+    ViewData["Title"] = "My Job Offers Published";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr/>
+
+@if(!Model.Any()){
+
+    <h2 class="text-center">You do not have any job offers yet!</h2>
+
+}
+else{
+    <div class="row">
+        @foreach(JobOfferAllViewModel job in Model)
+        {
+            <partial name="_JobOfferPartial" model="job"/>
+
+        }
+    </div>
+}

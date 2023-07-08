@@ -123,5 +123,28 @@ namespace JobPortal.Web.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        [HttpGet]
+
+        public async Task<IActionResult> CompanyJobOffers()
+        {
+            List<JobOfferAllViewModel> companyJobOffers = new List<JobOfferAllViewModel>();
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            if (!IsCompanay)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction(nameof(All));
+            }
+
+            companyJobOffers.AddRange(await jobOfferService.AllByCompanyId(userId!));
+
+            return this.View(companyJobOffers);
+
+
+        }
     }
 }
