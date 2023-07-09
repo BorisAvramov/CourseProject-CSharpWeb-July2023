@@ -16,6 +16,7 @@ namespace JobPortal.Services.Data.Interfaces
         Task <IEnumerable<JobOfferAllViewModel>> AllByCompanyId(string userId);
         Task <JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId);
         Task <JobOffer> GetJobOfferById(string jobOfferId);
+        Task  Delete(string id, string userId);
 
 
 

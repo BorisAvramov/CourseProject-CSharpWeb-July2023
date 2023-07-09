@@ -15,13 +15,15 @@ namespace JobPortal.Web.Controllers
     {
         private readonly ICompanyService companyService;
         private readonly IJobOfferService jobOfferService;
+        private readonly IApplicantService applicantService;
         private readonly ISelectOptionCollectionService selectOptionCollectionService;
 
 
-        public JobOfferController(ICompanyService _companyService, IJobOfferService _jobOfferService, ISelectOptionCollectionService _selectOptionCollectionService)
+        public JobOfferController(ICompanyService _companyService, IJobOfferService _jobOfferService, ISelectOptionCollectionService _selectOptionCollectionService, IApplicantService _applicantService)
         {
             this.companyService = _companyService;
             this.jobOfferService = _jobOfferService;
+            this.applicantService = _applicantService;
             this.selectOptionCollectionService = _selectOptionCollectionService;
 
 
@@ -31,7 +33,20 @@ namespace JobPortal.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllJobOffersQueryModel queryModel)
         {
-             
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+
+            if (!IsCompanay && !IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter or applicant!";
+
+                return RedirectToAction("Index", "Home");
+
+            }
+
+
             AllJobOffersFilteredAndPagedServiceModel serviceModel =
                 await this.jobOfferService.All(queryModel);
 
@@ -52,6 +67,7 @@ namespace JobPortal.Web.Controllers
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+            
 
             if (!IsCompanay)
             {
@@ -162,7 +178,28 @@ namespace JobPortal.Web.Controllers
         public async Task<IActionResult> Details(string id)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+
+            if (!IsCompanay && !IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter or applicant!";
+
+                return RedirectToAction("Index", "Home");
+
+            }
+
+
+            var jobOffer = await jobOfferService.GetJobOfferById(id);
+
+            if (jobOffer == null)
+            {
+                this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
+                return RedirectToAction(nameof(All));
+
+            }
+
+
             try
             {
                 JobOfferDetailsViewModel model = await jobOfferService.GetDetailsOfJobOffer(id);
@@ -176,6 +213,38 @@ namespace JobPortal.Web.Controllers
 
             }
           
+
+        }
+
+        
+
+        public async Task<IActionResult> Delete(string id)
+        {
+              string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var jobOffer = await jobOfferService.GetJobOfferById(id);
+            var company = await companyService.GetCompanyByApplicationUserId(userId);
+            if (company == null)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+                return RedirectToAction("Index", "Home");
+            }
+            if (jobOffer == null)
+            {
+                this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
+                return RedirectToAction(nameof(CompanyJobOffers));
+
+            }
+            
+
+            if (jobOffer.CompanyId != company.Id)
+            {
+                this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
+                return RedirectToAction(nameof(CompanyJobOffers));
+
+            }
+            await jobOfferService.Delete(id, userId);
+            return RedirectToAction(nameof(CompanyJobOffers));
+
 
         }
 

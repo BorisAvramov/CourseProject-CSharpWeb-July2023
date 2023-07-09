@@ -38,14 +38,20 @@
                 else if ((User?.Identity?.IsAuthenticated ?? false) && IsCompany && (Model.CompanyId == company.Id.ToString()))
                 {
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-warning" asp-controller="JobOffer" asp-action="Edit"
-                   asp-route-id="@Model.Id">Edit</a>
-
-                        <a class="ml-2 btn btn-danger" asp-controller="JobOffer" asp-action="Delete"
-                   asp-route-id="@Model.Id">Delete</a>
-
+                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="post">
+                            <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
+                        </form>
+                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Delete" method="post">
+                            <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+                        </form>
+                        
                     </div>
 
+                   
+
+                  
+
+                    
 
                 }
 

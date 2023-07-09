@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -161,6 +162,32 @@ namespace JobPortal.Services.Data
                 .ToArrayAsync();
 
             return allCompanyJobOffers;
+
+        }
+
+        public async Task Delete(string id, string userId)
+        {
+          var jobOffer = await GetJobOfferById(id);
+            var company = await companyService.GetCompanyByApplicationUserId(userId);
+            if (jobOffer == null)
+            {
+                throw new ArgumentException("Invalid job offer ID!");
+
+            }
+
+            if (jobOffer.CompanyId != company.Id)
+            {
+                throw new InvalidOperationException("Not creator of job offer!");
+
+            }
+
+            jobOffer.IsDeleted = true;
+            await dbContext.SaveChangesAsync();
+
+       
+
+
+
 
         }
 
