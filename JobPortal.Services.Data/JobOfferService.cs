@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+
 namespace JobPortal.Services.Data
 {
     public class JobOfferService : IJobOfferService
@@ -56,6 +57,7 @@ namespace JobPortal.Services.Data
         {
             IQueryable<JobOffer> jobOfferQuery = this.dbContext
                 .JobOffers
+                .Where(jo => jo.IsDeleted == false)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(queryModel.JobType))
@@ -101,6 +103,7 @@ namespace JobPortal.Services.Data
             };
 
             IEnumerable<JobOfferAllViewModel>  allJobOffers = await jobOfferQuery
+                
                 .Skip((queryModel.CurrentPage - 1) * queryModel.JobOffersPerPage)
                 .Take(queryModel.JobOffersPerPage)
                 .Select(j => new JobOfferAllViewModel
@@ -138,7 +141,7 @@ namespace JobPortal.Services.Data
 
             IEnumerable<JobOfferAllViewModel> allCompanyJobOffers = await this.dbContext
                 .JobOffers
-                .Where(jo => jo.CompanyId == company.Id)
+                .Where(jo => jo.CompanyId == company.Id && jo.IsDeleted == false)
                 .Select(jo => new JobOfferAllViewModel()
                 {
                     Id = jo.Id.ToString(),
@@ -159,6 +162,41 @@ namespace JobPortal.Services.Data
 
             return allCompanyJobOffers;
 
+        }
+
+        public async Task<JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId)
+        {
+         
+            var jobOffer = await GetJobOfferById(jobOfferId);
+            var userId =  jobOffer.Company.ApplicationUserId;
+
+            ApplicationUser? applicationUser = await this.dbContext.ApplicationUsers
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+
+
+            JobOfferDetailsViewModel modelDetails = new JobOfferDetailsViewModel()
+            {
+                Id = jobOffer.Id.ToString(),
+                CompanyId = jobOffer.CompanyId.ToString(),
+                CompanyImageUrl = jobOffer.Company.ImageUrl,
+                Name =jobOffer.Name,
+                Description = jobOffer.Description,
+                CompanyPhone = jobOffer.Company.Phone,
+                CompanyEmail = applicationUser!.Email,
+            };
+
+
+            return modelDetails;
+        }
+
+        public async Task<JobPortal.Data.Models.JobOffer> GetJobOfferById(string jobOfferId)
+        {
+            var jobOffer = await dbContext.JobOffers
+                    .Include(j => j.Company)
+                    .FirstOrDefaultAsync(j => j.Id.ToString() == jobOfferId);
+
+            return jobOffer!;
         }
     }
     }

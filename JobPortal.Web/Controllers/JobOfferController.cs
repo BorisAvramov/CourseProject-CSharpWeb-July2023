@@ -140,11 +140,44 @@ namespace JobPortal.Web.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            companyJobOffers.AddRange(await jobOfferService.AllByCompanyId(userId!));
+            try
+            {
+                companyJobOffers.AddRange(await jobOfferService.AllByCompanyId(userId!));
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+                
+            }
+
+            
 
             return this.View(companyJobOffers);
 
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(string id)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            try
+            {
+                JobOfferDetailsViewModel model = await jobOfferService.GetDetailsOfJobOffer(id);
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+
+            }
+          
+
+        }
+
     }
 }

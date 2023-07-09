@@ -1,0 +1,61 @@
+﻿@using System.Security.Claims;
+@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
+@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+@model JobOfferDetailsViewModel
+@{
+    ViewBag.Title = "JobOffer Details";
+}
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.CompanyImageUrl" alt="Company Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.Name</u></p>
+            <p>Description:
+                    <b>@Model.Description</b></p>
+            <p>Company Phone: <b>@Model.CompanyPhone</b></p>
+            <p>Company Email: <b>@Model.CompanyEmail</b></p>
+            @{
+                string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var company = await companyService.GetCompanyByApplicationUserId(userId);
+
+                bool IsCompany = await companyService.CompanyExistsByUserId(userId);
+                bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
+                if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant)
+                {
+                    <div class="d-flex justify-content-center">
+ 
+                        <a class="ml-2 btn btn-success" asp-controller="JobOffer" asp-action="Apply"
+                   asp-route-id="@Model.Id">Apply</a>
+
+                    </div>
+
+
+                }
+                else if ((User?.Identity?.IsAuthenticated ?? false) && IsCompany && (Model.CompanyId == company.Id.ToString()))
+                {
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-warning" asp-controller="JobOffer" asp-action="Edit"
+                   asp-route-id="@Model.Id">Edit</a>
+
+                        <a class="ml-2 btn btn-danger" asp-controller="JobOffer" asp-action="Delete"
+                   asp-route-id="@Model.Id">Delete</a>
+
+                    </div>
+
+
+                }
+
+            }
+
+
+
+            
+                
+        </div>
+           
+    </div>
+</div>
