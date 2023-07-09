@@ -46,17 +46,28 @@ namespace JobPortal.Web.Controllers
 
             }
 
+            try
+            {
+                AllJobOffersFilteredAndPagedServiceModel serviceModel =
+               await this.jobOfferService.All(queryModel);
 
-            AllJobOffersFilteredAndPagedServiceModel serviceModel =
-                await this.jobOfferService.All(queryModel);
+                queryModel.JobOffers = serviceModel.JobOffers;
+                queryModel.TotalJobOffers = serviceModel.TotalJobOffersCount;
+                queryModel.JobTypes = await selectOptionCollectionService.GetJobTypes();
+                queryModel.Levels = await selectOptionCollectionService.GetLevels();
+                queryModel.Towns = await selectOptionCollectionService.GetTowns();
+                queryModel.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+               
+            }
+            catch (Exception)
+            {
 
-            queryModel.JobOffers = serviceModel.JobOffers;
-            queryModel.TotalJobOffers = serviceModel.TotalJobOffersCount;
-            queryModel.JobTypes = await selectOptionCollectionService.GetJobTypes();
-            queryModel.Levels = await selectOptionCollectionService.GetLevels();
-            queryModel.Towns = await selectOptionCollectionService.GetTowns();
-            queryModel.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(queryModel);
+
         }
 
 
@@ -130,14 +141,14 @@ namespace JobPortal.Web.Controllers
             catch (Exception)
             {
                 this.TempData[ErrorMessage] = "Unexpected error occurred while adding new job offer! Please try again later or contact administrator!";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(All));
 
 
             }
 
 
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(CompanyJobOffers));
         }
 
         [HttpGet]
@@ -212,18 +223,20 @@ namespace JobPortal.Web.Controllers
                 return RedirectToAction(nameof(All));
 
             }
-          
+
 
         }
 
-        
 
+        [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-              string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
             var jobOffer = await jobOfferService.GetJobOfferById(id);
             var company = await companyService.GetCompanyByApplicationUserId(userId);
-            if (company == null)
+            if (!IsCompanay)
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
                 return RedirectToAction("Index", "Home");
@@ -242,11 +255,130 @@ namespace JobPortal.Web.Controllers
                 return RedirectToAction(nameof(CompanyJobOffers));
 
             }
-            await jobOfferService.Delete(id, userId);
+
+            try
+            {
+                await jobOfferService.Delete(id, userId);
+                this.TempData[SuccessMessage] = "Job offer successfully deleted!";
+            }
+            catch (Exception)
+            {
+
+                this.TempData[ErrorMessage] = "Unexpected error occurred while deleting job offer! Please try again later or contact administrator!";
+            }
+
             return RedirectToAction(nameof(CompanyJobOffers));
+
 
 
         }
 
+        [HttpGet]
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            var jobOffer = await jobOfferService.GetJobOfferById(id);
+            var company = await companyService.GetCompanyByApplicationUserId(userId);
+
+
+
+            if (!IsCompanay)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction("Index", "Home");
+
+            }
+            if (jobOffer == null)
+            {
+                this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
+                return RedirectToAction(nameof(CompanyJobOffers));
+            }
+
+            if (jobOffer.CompanyId != company.Id)
+            {
+                this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
+                return RedirectToAction(nameof(CompanyJobOffers));
+
+            }
+
+            JobOfferEditFormViewModel model = new JobOfferEditFormViewModel()
+            {
+                Name = jobOffer.Name,
+                Description = jobOffer.Description,
+                TownId = jobOffer.TownId,
+                ProgrammingLanguageId = jobOffer.ProgrammingLanguageId,
+                LevelId = jobOffer.LevelId,
+                JobTypeId = jobOffer.JobTypeId,
+
+
+                Towns = await selectOptionCollectionService.GetTowns(),
+                ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages(),
+                Levels = await selectOptionCollectionService.GetLevels(),
+                JobTypes = await selectOptionCollectionService.GetJobTypes(),
+            };
+
+            return View(model);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, JobOfferEditFormViewModel model)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var jobOffer = await jobOfferService.GetJobOfferById(id);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            if (!IsCompanay)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction("Index", "Home");
+            }
+            if (jobOffer == null)
+            {
+                this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
+                return RedirectToAction(nameof(CompanyJobOffers));
+            }
+
+
+            if (!ModelState.IsValid)
+            {
+                model.Towns = await selectOptionCollectionService.GetTowns();
+                model.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+                model.Levels = await selectOptionCollectionService.GetLevels();
+                model.JobTypes = await selectOptionCollectionService.GetJobTypes();
+
+                return View(model);
+            }
+
+            try
+            {
+
+
+                await jobOfferService.Edit(jobOffer, model);
+                this.TempData[SuccessMessage] = "Job offer successfully edited!";
+
+                //await roleService.CreateRole("applicant");
+                //await roleService.AddRoleToApplicationUser(userId, "applicant");
+
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred while editing job offer! Please try again later or contact administrator!";
+ 
+            }
+
+
+
+            return RedirectToAction(nameof(CompanyJobOffers));
+        }
+
     }
 }
+

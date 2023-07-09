@@ -17,6 +17,7 @@ namespace JobPortal.Services.Data.Interfaces
         Task <JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId);
         Task <JobOffer> GetJobOfferById(string jobOfferId);
         Task  Delete(string id, string userId);
+        Task  Edit(JobOffer jobOffer, JobOfferEditFormViewModel model);
 
 
 

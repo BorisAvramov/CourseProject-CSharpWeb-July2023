@@ -1,5 +1,7 @@
 ﻿body {
     background-image: url("https://wallpapercave.com/wp/wp7441429.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 h1 {

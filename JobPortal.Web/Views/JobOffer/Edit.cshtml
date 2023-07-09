@@ -1,0 +1,95 @@
+﻿@model JobOfferEditFormViewModel
+@{
+    ViewBag.Title = "Edit Job Offer";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+
+<link rel="stylesheet" href="~/css/becomeApplicant.css" asp-append-version="true" />
+
+
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Title input -->
+            <div class="form-outline mb-sm-1">
+                <label asp-for="@Model.Name" class="form-label" for="form4Example1"></label>
+                <input asp-for="@Model.Name" type="text" id="form4Example1" class="form-control"/>
+                <span asp-validation-for="@Model.Name" class="small text-danger"></span>
+            </div>
+
+
+            <!-- Town -->
+            <div class="mb-sm-1">
+                <label asp-for="@Model.TownId" class="form-label"></label>
+
+                <select asp-for="@Model.TownId" class="form-control">
+                    @foreach (var town in Model.Towns)
+                    {
+                        <option value="@town.Id">@town.Name</option>
+                    }
+                </select>
+
+                <span asp-validation-for="@Model.TownId" class="text-danger"></span>
+            </div>
+            <!-- Level -->
+            <div class="mb-sm-1">
+                <label asp-for="@Model.LevelId" class="form-label"></label>
+                <select asp-for="@Model.LevelId" class="form-control">
+                    @foreach (var level in Model.Levels)
+                    {
+                        <option value="@level.Id">@level.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.LevelId" class="text-danger"></span>
+            </div>
+            <!-- Programming Language -->
+            <div class="mb-sm-1">
+                <label asp-for="@Model.ProgrammingLanguageId" class="form-label"></label>
+
+                <select asp-for="@Model.ProgrammingLanguageId" class="form-control">
+                    @foreach (var pl in Model.ProgrammingLanguages)
+                    {
+                        <option value="@pl.Id">@pl.Name</option>
+                    }
+                </select>
+
+                <span asp-validation-for="@Model.ProgrammingLanguageId" class="text-danger"></span>
+            </div>
+            <!-- Job Type -->
+            <div class="mb-sm-1">
+                <label asp-for="@Model.JobTypeId" class="form-label"></label>
+                <select asp-for="@Model.JobTypeId" class="form-control">
+                    @foreach (var jt in Model.JobTypes)
+                    {
+                        <option value="@jt.Id">@jt.TypeName</option>
+                    }
+                </select>
+
+                <span asp-validation-for="@Model.JobTypeId" class="text-danger"></span>
+            </div>
+            <!-- Description input -->
+            <div class="form-outline mb-4">
+                <label asp-for="@Model.Description" class="form-label" for="form4Example3"></label>
+
+                <textarea asp-for="@Model.Description" class="form-control" id="form4Example3" rows="4"></textarea>
+                <span asp-validation-for="@Model.Description" class="small text-danger"></span>
+
+            </div>
+
+
+
+            <!-- Submit button -->
+            <button type="submit" asp-controller="JobOffer" asp-action="Edit" class="btn btn-primary btn-block mb-4">Edit</button>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

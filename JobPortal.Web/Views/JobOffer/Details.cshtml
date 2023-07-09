@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "JobOffer Details";
 }
+<link rel="stylesheet" href="~/css/All.css" asp-append-version="true" />
+
 
 <div class="container" style="display:inline">
     <div class="row">
@@ -38,7 +40,7 @@
                 else if ((User?.Identity?.IsAuthenticated ?? false) && IsCompany && (Model.CompanyId == company.Id.ToString()))
                 {
                     <div class="d-flex justify-content-center">
-                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="post">
+                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="get">
                             <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
                         </form>
                         <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Delete" method="post">

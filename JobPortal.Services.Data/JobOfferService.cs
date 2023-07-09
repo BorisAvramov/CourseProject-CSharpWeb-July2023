@@ -191,6 +191,20 @@ namespace JobPortal.Services.Data
 
         }
 
+        public async Task Edit(JobOffer jobOffer, JobOfferEditFormViewModel model)
+        {
+
+            jobOffer.Name = model.Name;
+            jobOffer.Description = model.Description;
+            jobOffer.LevelId = model.LevelId;
+            jobOffer.ProgrammingLanguageId = model.ProgrammingLanguageId;
+            jobOffer.TownId = model.TownId;
+            jobOffer.JobTypeId = model.JobTypeId;
+
+            await dbContext.SaveChangesAsync();
+
+        }
+
         public async Task<JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId)
         {
          
@@ -219,11 +233,11 @@ namespace JobPortal.Services.Data
 
         public async Task<JobPortal.Data.Models.JobOffer> GetJobOfferById(string jobOfferId)
         {
-            var jobOffer = await dbContext.JobOffers
+            JobOffer? jobOffer = await dbContext.JobOffers
                     .Include(j => j.Company)
                     .FirstOrDefaultAsync(j => j.Id.ToString() == jobOfferId);
 
-            return jobOffer!;
+            return jobOffer;
         }
     }
     }

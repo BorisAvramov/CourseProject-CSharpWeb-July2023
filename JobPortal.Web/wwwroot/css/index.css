@@ -1,3 +1,5 @@
 ﻿body {
-    background-image: url("https://static.vecteezy.com/system/resources/previews/010/053/767/non_2x/abstract-luxury-background-with-white-and-gold-free-vector.jpg")
+    background-image: url("https://static.vecteezy.com/system/resources/previews/010/053/767/non_2x/abstract-luxury-background-with-white-and-gold-free-vector.jpg");
+   
+    background-size: contain;
 }
