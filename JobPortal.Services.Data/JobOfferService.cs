@@ -205,10 +205,10 @@ namespace JobPortal.Services.Data
 
         }
 
-        public async Task<JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId)
+        public async Task<JobOfferDetailsViewModel> GetDetailsOfJobOffer(JobOffer jobOffer, string jobOfferId)
         {
          
-            var jobOffer = await GetJobOfferById(jobOfferId);
+            
             var userId =  jobOffer.Company.ApplicationUserId;
 
             ApplicationUser? applicationUser = await this.dbContext.ApplicationUsers

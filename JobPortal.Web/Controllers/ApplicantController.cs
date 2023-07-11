@@ -1,7 +1,11 @@
 ﻿using JobPortal.Data.Models;
+using JobPortal.Services.Data;
 using JobPortal.Services.Data.Interfaces;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.Company;
+using JobPortal.Web.ViewModels.JobOffer;
+using JopPortal.Services.Data.Models.Applicant;
+using JopPortal.Services.Data.Models.JobOffer;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -15,13 +19,15 @@ namespace JobPortal.Web.Controllers
         private readonly ICompanyService companyService;
         private readonly ISelectOptionCollectionService selectOptionCollectionService;
         private readonly IRoleService roleService;
+        private readonly IJobOfferService jobOfferService;
 
-        public ApplicantController(IApplicantService _applicantService, ICompanyService _companyService, IRoleService _roleService, ISelectOptionCollectionService _selectOptionCollectionService )
+        public ApplicantController(IApplicantService _applicantService, ICompanyService _companyService, IRoleService _roleService, ISelectOptionCollectionService _selectOptionCollectionService, IJobOfferService _jobOfferService)
         {
             this.applicantService = _applicantService;
             this.companyService= _companyService;
             this.roleService = _roleService;
             this.selectOptionCollectionService = _selectOptionCollectionService;
+            this.jobOfferService = _jobOfferService;
         }
 
         [HttpGet]
@@ -124,5 +130,88 @@ namespace JobPortal.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery] AllApplicantsQueryModel queryModel)
+        {
+
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+            
+
+            if (!IsCompanay)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction("Index", "Home");
+
+            }
+
+            try
+            {
+                AllApplicantsFilteredAndPagedServiceModel serviceModel =
+               await this.applicantService.All(queryModel);
+
+                queryModel.Applicants = serviceModel.Applicants;
+                queryModel.TotalApplicants = serviceModel.TotalApplicantsCount;
+                queryModel.Levels = await selectOptionCollectionService.GetLevels();
+                queryModel.Towns = await selectOptionCollectionService.GetTowns();
+                queryModel.ProgrammingLanguages = await selectOptionCollectionService.GetProgrammingLanguages();
+
+            }
+            catch (Exception)
+            {
+
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(queryModel);
+
+
+        }
+
+        public async Task <IActionResult> Details(string id)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            if (!IsCompanay)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction("Index", "Home");
+            }
+
+
+            var applicant = await applicantService.GetApplicantById(id);
+
+            if (applicant == null)
+            {
+                this.TempData[ErrorMessage] = "Applicant with the provided id does not exist!";
+                return RedirectToAction(nameof(All));
+
+            }
+
+
+            try
+            {
+                ApplicantDetailsViewModel model = await applicantService.GetDetailsOfApplicant(applicant, id);
+                return View(model);
+
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+
+            }
+
+
+
+        }
+
+      
     }
 }

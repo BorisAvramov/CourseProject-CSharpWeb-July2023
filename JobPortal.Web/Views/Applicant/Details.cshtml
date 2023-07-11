@@ -1,0 +1,26 @@
+﻿@using System.Security.Claims;
+@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
+@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+@model ApplicantDetailsViewModel
+@{
+    ViewBag.Title = "Applicant Details";
+}
+<link rel="stylesheet" href="~/css/All.css" asp-append-version="true" />
+
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.ImageUrl" alt="Applicant Image">
+        </div>
+        <div class="card col-6 border-0 bg-secondary text-white">
+            <p style="font-size:25px;"><u>@Model.FirstName @Model.LastName</u></p>
+            <p>Applicant Phone: <b>@Model.Phone</b></p>
+            <p>Applicant Email: <b>@Model.Email</b></p>
+            <p>Applied for  <b>@Model.ApplicantJobOffersCount  Job Offers</b></p>
+            
+        </div>
+
+    </div>
+</div>

@@ -14,7 +14,7 @@ namespace JobPortal.Services.Data.Interfaces
         Task AddJobOffer(JobOfferAddFormViewModel model, string userId );
         Task <AllJobOffersFilteredAndPagedServiceModel> All(AllJobOffersQueryModel queryModel);
         Task <IEnumerable<JobOfferAllViewModel>> AllByCompanyId(string userId);
-        Task <JobOfferDetailsViewModel> GetDetailsOfJobOffer(string jobOfferId);
+        Task <JobOfferDetailsViewModel> GetDetailsOfJobOffer(JobOffer jobOffer, string jobOfferId);
         Task <JobOffer> GetJobOfferById(string jobOfferId);
         Task  Delete(string id, string userId);
         Task  Edit(JobOffer jobOffer, JobOfferEditFormViewModel model);

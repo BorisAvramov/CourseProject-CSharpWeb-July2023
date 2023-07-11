@@ -1,0 +1,111 @@
+﻿@model AllApplicantsQueryModel
+
+@{
+    ViewBag.Title = "All Applicants";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<link rel="stylesheet" href="~/css/All.css" asp-append-version="true" />
+
+
+<form method="get">
+    <div class="row">
+        
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Level"></label>
+                <select asp-for="Level" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var level in Model.Levels)
+                    {
+                        <option value="@level.Name">@level.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="Town"></label>
+                <select asp-for="Town" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var town in Model.Towns)
+                    {
+                        <option value="@town.Name">@town.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3 d-flex justify-content-between">
+            <div class="form-group">
+                <label asp-for="ProgrammingLanguage"></label>
+                <select asp-for="ProgrammingLanguage" class="form-control">
+                    <option value="">All</option>
+                    @foreach (var programmingLanguage in Model.ProgrammingLanguages)
+                    {
+                        <option value="@programmingLanguage.Name">@programmingLanguage.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="SearchString"></label>
+            <input asp-for="SearchString" class="form-control" placeholder="...">
+        </div>
+        
+        <div class="container d-flex align-items-center justify-content-center">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+@{
+    int previousPage = Model.CurrentPage - 1;
+    if (previousPage < 1)
+    {
+        previousPage = 1;
+    }
+    int maxPage = (int)Math.Ceiling((double)Model.TotalApplicants /
+    Model.ApplicantsPerPage);
+
+}
+
+<div class="row mb-5">
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+           asp-controller="Applicant"
+           asp-action="All"
+           asp-route-currentPage="@previousPage"
+           
+           asp-route-level="@Model.Level"
+           asp-route-town="@Model.Town"
+           asp-route-programmingLanguage="@Model.ProgrammingLanguage"
+           asp-route-searchString="@Model.SearchString"><<</a>
+    </div>
+    @{
+        bool shouldNextPageBeDisabled = Model.CurrentPage == maxPage ||
+        !Model.Applicants.Any();
+    }
+    <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <a class="btn btn-primary
+@(shouldNextPageBeDisabled ? "disabled" : string.Empty)"
+           asp-controller="Applicant"
+           asp-action="All"
+           asp-route-currentPage="@(Model.CurrentPage + 1)"
+           asp-route-level="@Model.Level"
+           asp-route-town="@Model.Town"
+           asp-route-programmingLanguage="@Model.ProgrammingLanguage"
+           asp-route-searchString="@Model.SearchString">>></a>
+    </div>
+</div>
+@if (!Model.Applicants.Any())
+{
+    <h2 class="text-center">No Applicants found by the given criteria!</h2>
+}
+<div class="row">
+    @foreach (var applicant in Model.Applicants)
+    {
+        <partial name="_ApplicantPartial" model="@applicant" />
+    }
+</div>

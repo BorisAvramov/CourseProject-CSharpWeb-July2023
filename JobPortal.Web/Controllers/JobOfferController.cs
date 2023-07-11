@@ -1,4 +1,5 @@
-﻿using JobPortal.Services.Data;
+﻿using JobPortal.Data.Models;
+using JobPortal.Services.Data;
 using JobPortal.Services.Data.Interfaces;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.JobOffer;
@@ -78,7 +79,7 @@ namespace JobPortal.Web.Controllers
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
-            
+
 
             if (!IsCompanay)
             {
@@ -86,6 +87,8 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+
+
 
             JobOfferAddFormViewModel model = new JobOfferAddFormViewModel()
             {
@@ -114,9 +117,9 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+           
 
 
-          
             if (!ModelState.IsValid)
             {
                 model.Towns = await selectOptionCollectionService.GetTowns();
@@ -213,7 +216,7 @@ namespace JobPortal.Web.Controllers
 
             try
             {
-                JobOfferDetailsViewModel model = await jobOfferService.GetDetailsOfJobOffer(id);
+                JobOfferDetailsViewModel model = await jobOfferService.GetDetailsOfJobOffer(jobOffer, id);
                 return View(model);
 
             }
@@ -379,6 +382,48 @@ namespace JobPortal.Web.Controllers
             return RedirectToAction(nameof(CompanyJobOffers));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Apply(string id)
+        {
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+
+
+            if (!IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be an applicant!";
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            Applicant applicant = await applicantService.GetApplicantByApplicationUserId(userId);
+            Guid applicatnId = applicant.Id;
+
+            bool AlreadyAppliedForTheJob = await applicantService.IsApplicantAppliedForTheJob(applicatnId, Guid.Parse(id));
+
+            if (AlreadyAppliedForTheJob)
+            {
+                this.TempData[ErrorMessage] = "You have already applied for the job!";
+                return RedirectToAction("All", "JobOffer");
+
+            }
+
+
+            try
+            {
+                await applicantService.ApplicantApplyForOffer(applicatnId, Guid.Parse(id));
+                this.TempData[SuccessMessage] = "You have successfully applied for the job!";
+
+            }
+            catch (Exception)
+            {
+
+                this.TempData[ErrorMessage] = "Unexpected error occurred while applying for the job! Please try again later or contact administrator!";
+
+            }
+            return RedirectToAction("All", "JobOffer");
+
+        }
     }
 }
 
