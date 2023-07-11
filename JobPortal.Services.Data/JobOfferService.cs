@@ -136,6 +136,33 @@ namespace JobPortal.Services.Data
   
             }
 
+        public async Task<IEnumerable<JobOfferAllViewModel>> AllByApplicantId(string applicantId)
+        {
+            IEnumerable<JobOfferAllViewModel> allApplicantJobOffers = await dbContext.ApplicantsJobOffers
+                .Where(aj => aj.ApplicantId.ToString() == applicantId)
+                .Select(aj => new JobOfferAllViewModel
+                {
+                    Id = aj.JobOffer.Id.ToString(),
+                    Name = aj.JobOffer.Name,
+                    Town = aj.JobOffer.Town.Name,
+                    Level = aj.JobOffer.Level.Name,
+                    ProgrammingLanguage = aj.JobOffer.ProgrammingLanguage.Name,
+                    JobType = aj.JobOffer.JobType.TypeName,
+                    CreatedOn = aj.JobOffer.CreatedOn.ToString("dd/MM/yyyy"),
+                    Description = aj.JobOffer.Description,
+                    Company = aj.JobOffer.Company.Name,
+                    CompanyImageUrl = aj.JobOffer.Company.ImageUrl,
+                    JobOfferApplicantsCount = aj.JobOffer.JobOfferApplicants.Count(),
+
+                })
+                .ToArrayAsync();
+
+
+            return allApplicantJobOffers;
+
+
+        }
+
         public async Task<IEnumerable<JobOfferAllViewModel>> AllByCompanyId(string userId)
         {
             Company? company = await companyService.GetCompanyByApplicationUserId(userId);

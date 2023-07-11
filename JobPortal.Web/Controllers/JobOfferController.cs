@@ -151,12 +151,12 @@ namespace JobPortal.Web.Controllers
 
 
 
-            return RedirectToAction(nameof(CompanyJobOffers));
+            return RedirectToAction(nameof(JobOffersPublishedFromACompany));
         }
 
         [HttpGet]
 
-        public async Task<IActionResult> CompanyJobOffers()
+        public async Task<IActionResult> JobOffersPublishedFromACompany()
         {
             List<JobOfferAllViewModel> companyJobOffers = new List<JobOfferAllViewModel>();
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -184,6 +184,45 @@ namespace JobPortal.Web.Controllers
             
 
             return this.View(companyJobOffers);
+
+
+        }
+
+
+        [HttpGet]
+
+        public async Task<IActionResult> JobOffersAppliedFromAnApplicant(string id)
+        {
+            List<JobOfferAllViewModel> applicantJobOffers = new List<JobOfferAllViewModel>();
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var applicant = await applicantService.GetApplicantById(userId);
+
+
+            bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
+
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            if (!IsCompanay && !IsApplicant)
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter or an applicant!";
+
+                return RedirectToAction(nameof(All));
+            }
+
+            try
+            {
+                applicantJobOffers.AddRange(await jobOfferService.AllByApplicantId(id!));
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+
+            }
+
+
+
+            return this.View(applicantJobOffers);
 
 
         }
@@ -247,7 +286,7 @@ namespace JobPortal.Web.Controllers
             if (jobOffer == null)
             {
                 this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
-                return RedirectToAction(nameof(CompanyJobOffers));
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
 
             }
             
@@ -255,7 +294,7 @@ namespace JobPortal.Web.Controllers
             if (jobOffer.CompanyId != company.Id)
             {
                 this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
-                return RedirectToAction(nameof(CompanyJobOffers));
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
 
             }
 
@@ -270,7 +309,7 @@ namespace JobPortal.Web.Controllers
                 this.TempData[ErrorMessage] = "Unexpected error occurred while deleting job offer! Please try again later or contact administrator!";
             }
 
-            return RedirectToAction(nameof(CompanyJobOffers));
+            return RedirectToAction(nameof(JobOffersPublishedFromACompany));
 
 
 
@@ -299,13 +338,13 @@ namespace JobPortal.Web.Controllers
             if (jobOffer == null)
             {
                 this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
-                return RedirectToAction(nameof(CompanyJobOffers));
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
             }
 
             if (jobOffer.CompanyId != company.Id)
             {
                 this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
-                return RedirectToAction(nameof(CompanyJobOffers));
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
 
             }
 
@@ -346,7 +385,7 @@ namespace JobPortal.Web.Controllers
             if (jobOffer == null)
             {
                 this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
-                return RedirectToAction(nameof(CompanyJobOffers));
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
             }
 
 
@@ -379,7 +418,7 @@ namespace JobPortal.Web.Controllers
 
 
 
-            return RedirectToAction(nameof(CompanyJobOffers));
+            return RedirectToAction(nameof(JobOffersPublishedFromACompany));
         }
 
         [HttpPost]

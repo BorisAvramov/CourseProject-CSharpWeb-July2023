@@ -1,0 +1,47 @@
+﻿@using System.Security.Claims;
+@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+
+
+@model List<JobOfferAllViewModel>
+@{
+    ViewBag.Title = "All Offers Applied";
+    string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var applicant = await applicantService.GetApplicantByApplicationUserId(userId);
+    
+}
+
+<link rel="stylesheet" href="~/css/companyJobOffers.css" asp-append-version="true" />
+
+@{
+
+    if (applicant != null)
+    {
+        <h2 class="text-center">@ViewBag.Title by @applicant.FirstName @applicant.LastName</h2>
+    }
+    else
+    {
+        <h2 class="text-center">@ViewBag.Title</h2>
+    }
+
+}
+
+<hr />
+
+
+
+@if (!Model.Any())
+{
+
+    <h2 class="text-center">The Applicant does not have any job offers applied yet!</h2>
+
+}
+else
+{
+    <div class="row">
+        @foreach (JobOfferAllViewModel job in Model)
+        {
+            <partial name="_JobOfferPartial" model="job" />
+
+        }
+    </div>
+}

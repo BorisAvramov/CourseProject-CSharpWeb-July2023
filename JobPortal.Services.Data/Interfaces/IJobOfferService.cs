@@ -18,6 +18,8 @@ namespace JobPortal.Services.Data.Interfaces
         Task <JobOffer> GetJobOfferById(string jobOfferId);
         Task  Delete(string id, string userId);
         Task  Edit(JobOffer jobOffer, JobOfferEditFormViewModel model);
+        Task<IEnumerable<JobOfferAllViewModel>> AllByApplicantId(string applicantId);
+
 
 
 

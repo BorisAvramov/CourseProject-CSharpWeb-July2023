@@ -1,6 +1,4 @@
-﻿@using System.Security.Claims;
-@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
-@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+﻿
 @model ApplicantDetailsViewModel
 @{
     ViewBag.Title = "Applicant Details";
@@ -18,9 +16,14 @@
             <p style="font-size:25px;"><u>@Model.FirstName @Model.LastName</u></p>
             <p>Applicant Phone: <b>@Model.Phone</b></p>
             <p>Applicant Email: <b>@Model.Email</b></p>
-            <p>Applied for  <b>@Model.ApplicantJobOffersCount  Job Offers</b></p>
+            <p>Applied for  <b>@Model.ApplicantJobOffersCount  Applications</b></p>
+            
+            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="JobOffersAppliedFromAnApplicant" method="get">
+                <input type="submit" value="Applications" class="fs-6 btn btn-warning mb-3 p-2" />
+            </form>
+
             
         </div>
-
+        
     </div>
 </div>
