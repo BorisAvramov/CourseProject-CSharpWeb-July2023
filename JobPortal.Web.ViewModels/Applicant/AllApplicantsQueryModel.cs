@@ -11,6 +11,11 @@ using System.Xml.Linq;
 
 namespace JobPortal.Web.ViewModels.Applicant
 {
+
+    /// <summary>
+    /// View Model with properties to filter, sorting and pagination!
+    /// </summary>
+
     public class AllApplicantsQueryModel
     {
         public AllApplicantsQueryModel()

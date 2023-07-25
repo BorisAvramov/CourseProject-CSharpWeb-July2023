@@ -10,6 +10,9 @@ using static JobPortal.Common.EntityValidationConstants.Applicant;
 
 namespace JobPortal.Web.ViewModels.Applicant
 {
+    /// <summary>
+    /// View Model to display Applicant object
+    /// </summary>
     public class ApplicantAllViewModel
     {
         public string Id { get; set; } = null!;

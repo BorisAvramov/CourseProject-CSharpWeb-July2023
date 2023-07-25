@@ -18,6 +18,10 @@ namespace JobPortal.Web.Controllers
             this.signInManager = _signInManager;
         }
 
+        /// <summary>
+        /// Register Application User!
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         [AllowAnonymous]
@@ -76,7 +80,10 @@ namespace JobPortal.Web.Controllers
 
         }
 
-
+        /// <summary>
+        /// Login Application User!
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         [AllowAnonymous]
@@ -123,7 +130,10 @@ namespace JobPortal.Web.Controllers
 
         }
 
-
+        /// <summary>
+        /// Logout Application User
+        /// </summary>
+        /// <returns></returns>
 
         [HttpPost]
         public async Task<IActionResult> Logout()

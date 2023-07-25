@@ -30,6 +30,13 @@ namespace JobPortal.Web.Controllers
 
         }
 
+        /// <summary>
+        /// Get All Job Offers filtered and paged
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery]AllJobOffersQueryModel queryModel)
@@ -71,6 +78,11 @@ namespace JobPortal.Web.Controllers
 
         }
 
+
+        /// <summary>
+        /// Add Job Offer to CompanyJobOffers
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<IActionResult> Add()
@@ -137,8 +149,7 @@ namespace JobPortal.Web.Controllers
                 await jobOfferService.AddJobOffer(model, userId);
                 this.TempData[SuccessMessage] = "Job offer successfully added!";
 
-                //await roleService.CreateRole("applicant");
-                //await roleService.AddRoleToApplicationUser(userId, "applicant");
+               
 
             }
             catch (Exception)
@@ -154,8 +165,13 @@ namespace JobPortal.Web.Controllers
             return RedirectToAction(nameof(JobOffersPublishedFromACompany));
         }
 
-        [HttpGet]
+        /// <summary>
+        /// Get all Job Offers Published by Company!
+        /// </summary>
+        /// <returns></returns>
 
+
+        [HttpGet]
         public async Task<IActionResult> JobOffersPublishedFromACompany()
         {
             List<JobOfferAllViewModel> companyJobOffers = new List<JobOfferAllViewModel>();
@@ -189,8 +205,13 @@ namespace JobPortal.Web.Controllers
         }
 
 
-        [HttpGet]
+        /// <summary>
+        /// Get all Job Offers Applied from Applicant!
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
+        [HttpGet]
         public async Task<IActionResult> JobOffersAppliedFromAnApplicant(string id)
         {
             List<JobOfferAllViewModel> applicantJobOffers = new List<JobOfferAllViewModel>();
@@ -226,6 +247,13 @@ namespace JobPortal.Web.Controllers
 
 
         }
+
+        /// <summary>
+        /// Get Details of Job Offer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
 
         [HttpGet]
         public async Task<IActionResult> Details(string id)
@@ -269,6 +297,11 @@ namespace JobPortal.Web.Controllers
 
         }
 
+        /// <summary>
+        /// Set IsDelete property of Job Offer to true
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
@@ -315,8 +348,15 @@ namespace JobPortal.Web.Controllers
 
         }
 
-        [HttpGet]
 
+
+        /// <summary>
+        /// Edit Properties of Job Offer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -406,8 +446,6 @@ namespace JobPortal.Web.Controllers
                 await jobOfferService.Edit(jobOffer, model);
                 this.TempData[SuccessMessage] = "Job offer successfully edited!";
 
-                //await roleService.CreateRole("applicant");
-                //await roleService.AddRoleToApplicationUser(userId, "applicant");
 
             }
             catch (Exception)
@@ -421,6 +459,12 @@ namespace JobPortal.Web.Controllers
             return RedirectToAction(nameof(JobOffersPublishedFromACompany));
         }
 
+
+        /// <summary>
+        /// When Applicant apply for a Job, Add to ApplicantsJobOffers many to many table.
+        /// Add applicantId and jobOfferId to mapping table </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Apply(string id)
         {

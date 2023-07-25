@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace JopPortal.Services.Data.Models.JobOffer
 {
+
+    /// <summary>
+    /// Return List of all Job Offers filtered and paged!
+    /// Return Total Count of  All Job Offers!
+    /// </summary>
     public class AllJobOffersFilteredAndPagedServiceModel
     {
 

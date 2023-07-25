@@ -9,6 +9,10 @@ using static JobPortal.Common.EntityValidationConstants.Company;
 
 namespace JobPortal.Web.ViewModels.Company
 {
+    /// <summary>
+    /// View Form Model for the User to Become a Company
+    /// </summary>
+
     public class BecomeRecruiterFormModel
     {
         [Required]

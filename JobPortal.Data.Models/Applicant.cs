@@ -64,7 +64,7 @@ namespace JobPortal.Data.Models
 
 
 
-        [Comment("This is a company reference to application user")]
+        [Comment("This is an applicant reference to application user")]
         [ForeignKey(nameof(ApplicationUser))]
         public Guid ApplicationUserId { get; set; }
 

@@ -14,7 +14,7 @@ namespace JobPortal.Data
 
 
         }
-
+     
         public DbSet<Applicant> Applicants { get; set; } = null!;
         public DbSet<JobOffer> JobOffers { get; set; } = null!;
         public DbSet<ApplicantJobOffer> ApplicantsJobOffers { get; set; } = null!;
@@ -22,7 +22,6 @@ namespace JobPortal.Data
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Town> Towns { get; set; } = null!;
 
-        //public DbSet<CompanyTown> CompaniesTowns { get; set; } = null!;
         public DbSet<JobType> JobTypes { get; set; } = null!;
         public DbSet<Level> Levels { get; set; } = null!;
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; } = null!;
@@ -30,6 +29,8 @@ namespace JobPortal.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
+
             Assembly configAssembly = Assembly.GetAssembly(typeof(JobPortalDbContext))
                                       ?? Assembly.GetExecutingAssembly();
 

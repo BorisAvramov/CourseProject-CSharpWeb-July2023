@@ -1,5 +1,8 @@
 ﻿namespace JobPortal.Common
 {
+    /// <summary>
+    /// Validations constants  for Properties of Entities!
+    /// </summary>
     public static class EntityValidationConstants
     {
         public static class Company

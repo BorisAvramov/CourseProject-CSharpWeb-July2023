@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.ViewModels.User
 {
+    /// <summary>
+    /// Form View Model for user login!
+    /// </summary>
+
     public class LoginViewModel
     {
         [Required]

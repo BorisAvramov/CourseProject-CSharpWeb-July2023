@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Data.Configuration
 {
+
+    /// <summary>
+    /// Configuring ApplicantJobOffer entity for Relations, Delete Behaviour, Default Value of IsDeleted Property and Primary Key
+    /// </summary>
+
     public class ApplicantJobOfferEntityConfiguration : IEntityTypeConfiguration<ApplicantJobOffer>
     {
         public void Configure(EntityTypeBuilder<ApplicantJobOffer> builder)

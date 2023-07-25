@@ -1,11 +1,10 @@
 ﻿@model JobOfferAllViewModel
 <div class="col-md-4">
     <div class="card mb-3">
-@*        <img class="card-img-top" src="@Model.ImageUrl" alt="House Image">
-        *@        <div class="card-body text-center bg-secondary text-white">
+       <div class="card-body text-center bg-secondary text-white">
             <img src="@Model.CompanyImageUrl" class="rounded mx-auto d-block" />
             <h4>@Model.Name</h4>
-           @* <h6>Description: <b>@Model.Description</b></h6>*@
+           
             <h6>
                 Town:
                 <b>@Model.Town</b>
@@ -34,46 +33,9 @@
             <br />
             <a asp-controller="JobOffer" asp-action="Details" asp-route-id="@Model.Id"
                class="btn btn-success">Details</a>
-         @*   @if (this.User?.Identity?.IsAuthenticated ?? false)
-            {
-                <a asp-controller="JobOffer" asp-action="Edit" asp-route-id="@Model.Id"
-               class="btn btn-warning">Edit</a>
-                <a asp-controller="JobOffer" asp-action="Delete" asp-route-id="@Model.Id"
-               class="btn btn-danger">Delete</a>
-                <p></p>
-                
-                    <form class="input-group-sm" asp-controller="JobOffer"
-                  asp-action="Apply" asp-route-id="@Model.Id" method="post">
-                        <input class="btn btn-primary" type="submit" value="Apply" />
-                    </form>
-                
-                
-            }*@
+       
         </div>
     </div>
 </div>
 
-@*public string Id { get; set; } = null!;
-        [Display(Name ="Title")]
-        public string Name { get; set; } = null!;
-        [Display(Name ="Published on")]
-        public string CreatedOn { get; set; } = null!;
 
-        public string Description { get; set; } = null!;
-
-        [Display(Name = "Programming Language")]
-        public string ProgrammingLanguage { get; set; } = null!;
-
-
-        public  string Town { get; set; } = null!;
-
-        public string  Level { get; set; } = null!;
-
-        [Display(Name = "Job Type")]
-        public string JobType { get; set; } = null!;
-
-        [Display(Name = "Company Name")]
-        public string  Company { get; set; } = null!;
-
-        [Display(Name = "Count of Applicants")]
-        public int JobOfferApplicantsCount { get; set; }*@

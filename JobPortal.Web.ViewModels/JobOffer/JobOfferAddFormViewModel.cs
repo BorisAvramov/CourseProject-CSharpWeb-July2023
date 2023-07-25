@@ -12,6 +12,9 @@ using static JobPortal.Common.EntityValidationConstants.JobOffer;
 
 namespace JobPortal.Web.ViewModels.JobOffer
 {
+    /// <summary>
+    /// Form View  Model for Add Job Offer from Company!
+    /// </summary>
     public class JobOfferAddFormViewModel
     {
         [Required]

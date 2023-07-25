@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Data.Configuration
 {
+    /// <summary>
+    /// Configuring ApplicationUser entity for Default Value of IsDeleted Property
+    /// </summary>
+
     public class ApplicationUserEntityConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)

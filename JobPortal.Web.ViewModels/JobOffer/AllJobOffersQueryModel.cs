@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.ViewModels.JobOffer
 {
+    /// <summary>
+    /// View Model with properties to filter, sorting and pagination!
+    /// </summary>
+
     public class AllJobOffersQueryModel
     {
         public AllJobOffersQueryModel()

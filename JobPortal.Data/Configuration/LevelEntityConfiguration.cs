@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Data.Configuration
 {
+    /// <summary>
+    /// Configuring Level entity for   Default Value of IsDeleted Property and Seed database
+    /// </summary>
     public class LevelEntityConfiguration : IEntityTypeConfiguration<Level>
     {
         public void Configure(EntityTypeBuilder<Level> builder)

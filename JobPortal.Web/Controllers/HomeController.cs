@@ -20,7 +20,10 @@ namespace JobPortal.Web.Controllers
             this.applicantService = _applicantService;
         }
 
-        
+        /// <summary>
+        /// Display Home Index View instead of type of user identity and role type - is Authenticated, is Applicant, is Company!
+        /// </summary>
+        /// <returns></returns>
 
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -41,7 +44,6 @@ namespace JobPortal.Web.Controllers
 
                 }
 
-                //return RedirectToAction("All", "Movies");
 
             }
 
@@ -49,7 +51,11 @@ namespace JobPortal.Web.Controllers
             return View();
         }
 
-       
+       /// <summary>
+       /// Display Error pages!
+       /// </summary>
+       /// <param name="statusCode"></param>
+       /// <returns></returns>
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)

@@ -18,14 +18,19 @@ namespace JobPortal.Web.Controllers
         private readonly ICompanyService companyService;
         private readonly IApplicantService applicantService;
 
-        private readonly IRoleService roleService;
 
-        public CompanyController(ICompanyService _companyService, IRoleService _roleService, IApplicantService _applicantService)
+        public CompanyController(ICompanyService _companyService, IApplicantService _applicantService)
         {
             this.companyService = _companyService;
-            this.roleService = _roleService;
+          
             this.applicantService = _applicantService;
         }
+
+        /// <summary>
+        /// Add Company entity. User becomes Company
+        /// </summary>
+        /// <returns></returns>
+
 
         [HttpGet]
         public async Task<IActionResult> Become()
@@ -99,8 +104,7 @@ namespace JobPortal.Web.Controllers
                 await companyService.Create(model, userId);
                 this.TempData[SuccessMessage] = "Successfull registration as a recruiter!";
 
-                //await roleService.CreateRole("recruiter");
-                //await roleService.AddRoleToApplicationUser(userId, "recruiter");
+               
 
             }
             catch (Exception)

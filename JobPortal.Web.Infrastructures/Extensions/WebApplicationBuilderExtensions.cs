@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.Infrastructures.Extensions
 {
+    /// <summary>
+    /// Add services and interfaces to  application services in IoC container in Program.cs 
+    /// </summary>
+
+
     public static class WebApplicationBuilderExtensions
     {
 

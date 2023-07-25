@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace JopPortal.Services.Data.Models.Applicant
 {
+    /// <summary>
+    /// Return List of all Applicants gltered and paged.!
+    /// Return Total Count of  All Applicants
+    /// </summary>
     public class AllApplicantsFilteredAndPagedServiceModel
     {
         public int TotalApplicantsCount { get; set; }

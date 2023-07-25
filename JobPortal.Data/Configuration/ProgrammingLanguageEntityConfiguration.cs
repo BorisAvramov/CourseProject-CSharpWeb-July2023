@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Data.Configuration
 {
+
+    /// <summary>
+    /// Configuring ProgrammingLanguage entity for   Default Value of IsDeleted Property and Seed database
+    /// </summary>
     public class ProgrammingLanguageEntityConfiguration : IEntityTypeConfiguration<ProgrammingLanguage>
     {
         public void Configure(EntityTypeBuilder<ProgrammingLanguage> builder)

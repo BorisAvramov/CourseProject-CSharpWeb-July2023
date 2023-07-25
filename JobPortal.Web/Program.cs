@@ -38,8 +38,7 @@ namespace JobPortal.Web
 
 
             })
-                //.AddDefaultTokenProviders()
-                //.AddRoles<IdentityRole>() 
+                
                 .AddEntityFrameworkStores<JobPortalDbContext>();
 
 

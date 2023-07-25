@@ -9,6 +9,9 @@ using System.Xml.Linq;
 
 namespace JobPortal.Web.ViewModels.Applicant
 {
+    /// <summary>
+    /// View Model to display Applicant Details
+    /// </summary>
     public class ApplicantDetailsViewModel
     {
         public string Id { get; set; } = null!;

@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.ViewModels.JobOffer
 {
+
+    /// <summary>
+    /// View Model to display Job Offer object
+    /// </summary>
     public class JobOfferAllViewModel
     {
 

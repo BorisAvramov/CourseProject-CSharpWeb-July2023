@@ -8,6 +8,9 @@ using System.Xml.Linq;
 
 namespace JobPortal.Web.ViewModels.JobOffer
 {
+    /// <summary>
+    /// View Model to display Job Offer Details
+    /// </summary>
     public class JobOfferDetailsViewModel
     {
         public string Id { get; set; } = null!;

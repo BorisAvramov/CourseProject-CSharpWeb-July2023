@@ -18,17 +18,23 @@ namespace JobPortal.Web.Controllers
         private readonly IApplicantService applicantService;
         private readonly ICompanyService companyService;
         private readonly ISelectOptionCollectionService selectOptionCollectionService;
-        private readonly IRoleService roleService;
         private readonly IJobOfferService jobOfferService;
 
-        public ApplicantController(IApplicantService _applicantService, ICompanyService _companyService, IRoleService _roleService, ISelectOptionCollectionService _selectOptionCollectionService, IJobOfferService _jobOfferService)
+        public ApplicantController(IApplicantService _applicantService, ICompanyService _companyService, ISelectOptionCollectionService _selectOptionCollectionService, IJobOfferService _jobOfferService)
         {
             this.applicantService = _applicantService;
             this.companyService= _companyService;
-            this.roleService = _roleService;
+           
             this.selectOptionCollectionService = _selectOptionCollectionService;
             this.jobOfferService = _jobOfferService;
         }
+
+        /// <summary>
+        /// User becomes Applicant!
+        /// Add Applicant entity!
+        /// </summary>
+        /// <returns></returns>
+
 
         [HttpGet]
         public async Task<IActionResult> Become()
@@ -114,8 +120,6 @@ namespace JobPortal.Web.Controllers
                 await applicantService.Create(model, userId);
                 this.TempData[SuccessMessage] = "Successfull registration as an applicant!";
 
-                //await roleService.CreateRole("applicant");
-                //await roleService.AddRoleToApplicationUser(userId, "applicant");
 
             }
             catch (Exception)
@@ -130,6 +134,13 @@ namespace JobPortal.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+
+        /// <summary>
+        /// Get All Applicants filtered and paged
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task<IActionResult> All([FromQuery] AllApplicantsQueryModel queryModel)
@@ -171,6 +182,13 @@ namespace JobPortal.Web.Controllers
 
 
         }
+
+
+        /// <summary>
+        /// Get Details of Applicant by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task <IActionResult> Details(string id)
         {

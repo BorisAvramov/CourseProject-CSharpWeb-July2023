@@ -9,6 +9,10 @@ using JobPortal.Data.Models;
 
 namespace JobPortal.Web.ViewModels.Applicant
 {
+
+    /// <summary>
+    /// View Form Model for the User to Become an Applicant
+    /// </summary>
     public class BecomeApplicantFormModel
     {
         [Required]

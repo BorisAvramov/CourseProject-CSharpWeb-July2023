@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Common
 {
+
+    /// <summary>
+   /// Notification messages for using toastr scripts    
+   /// </summary>
     public static class NotificationMessageConstants
     {
         public const string ErrorMessage = "ErrorMessage";
