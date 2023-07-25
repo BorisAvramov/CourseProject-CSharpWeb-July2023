@@ -24,12 +24,17 @@ namespace JobPortal.Web
             builder.Services.AddDefaultIdentity<ApplicationUser>(options => 
             {
 
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireLowercase= false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 4;
-                
+                options.SignIn.RequireConfirmedAccount = 
+                    builder.Configuration.GetValue<bool>("Identity:SignIn:RequireConfirmedAccount");
+                options.Password.RequireLowercase= 
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireLowercase");
+                options.Password.RequireUppercase =
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireUppercase");
+                options.Password.RequireNonAlphanumeric =
+                    builder.Configuration.GetValue<bool>("Identity:Password:RequireNonAlphanumeric");
+                options.Password.RequiredLength =
+                    builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
+
 
             })
                 //.AddDefaultTokenProviders()
@@ -59,7 +64,8 @@ namespace JobPortal.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 
