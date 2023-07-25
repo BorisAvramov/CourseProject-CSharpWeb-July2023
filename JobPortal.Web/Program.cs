@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using JobPortal.Web.Infrastructures.Extensions;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobPortal.Web
 {
@@ -51,7 +52,12 @@ namespace JobPortal.Web
             });
 
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+                .AddControllersWithViews()
+                .AddMvcOptions(options =>
+                {
+                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                }); 
 
             var app = builder.Build();
 
