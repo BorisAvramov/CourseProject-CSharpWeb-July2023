@@ -1,13 +1,47 @@
 ﻿@using JobPortal.Data.Models;
+@using JobPortal.Services.Data.Interfaces;
 @using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IApplicantService applicantService
+@inject ICompanyService companyService
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
+    bool isCompany = await companyService.CompanyExistsByUserId(userId);
+}
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
-{   
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+    {
+        <li class="nav-item">
+            <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                @{
+                    string result = "";
+
+                    if (isApplicant)
+                    {
+                        Applicant applicant = await applicantService.GetApplicantByApplicationUserId(userId);
+                        result =  $"{applicant.FirstName} {applicant.LastName}!";
+
+                    }
+                    else if (isCompany)
+                    {
+                        Company company = await companyService.GetCompanyByApplicationUserId(userId);
+
+                        result = $"{company.Name}!";
+
+                    }
+                    else
+                    {
+                        result = $"{User.Identity?.Name!}";
+                    }
+                }
+                Hello @result
+               
+        </a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

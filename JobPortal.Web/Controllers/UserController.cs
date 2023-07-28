@@ -98,7 +98,7 @@ namespace JobPortal.Web.Controllers
 
             var model = new LoginViewModel();
 
-            return View(model);
+            return View(model);  
         }
 
         [HttpPost]
