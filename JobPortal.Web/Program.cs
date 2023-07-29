@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 using JobPortal.Web.Infrastructures.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using static JobPortal.Common.GeneralApplicationConstants;
 
 namespace JobPortal.Web
 {
@@ -38,7 +39,7 @@ namespace JobPortal.Web
 
 
             })
-                
+                .AddRoles<IdentityRole<Guid>>()  
                 .AddEntityFrameworkStores<JobPortalDbContext>();
 
 
@@ -81,6 +82,8 @@ namespace JobPortal.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.SeedAdministrator(DevelopmentAdminEmail);
 
             app.MapControllerRoute(
                 name: "default",
