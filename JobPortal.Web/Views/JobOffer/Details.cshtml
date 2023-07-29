@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims;
+@using JobPortal.Web.Infrastructures.Extensions;
 @inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
 @inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
 @model JobOfferDetailsViewModel
@@ -38,23 +39,20 @@
 
 
                 }
-                else if ((User?.Identity?.IsAuthenticated ?? false) && IsCompany && (Model.CompanyId == company.Id.ToString()))
+                else if (User?.Identity?.IsAuthenticated ?? false)
                 {
-                    <div class="d-flex justify-content-center">
-                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="get">
-                            <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
-                        </form>
-                        <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Delete" method="post">
-                            <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
-                        </form>
-                        
-                    </div>
+                    if ((IsCompany && (Model.CompanyId == company.Id.ToString())) || User.IsAdmin())
+                    {
+                        <div class="d-flex justify-content-center">
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="get">
+                                <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
+                            </form>
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Delete" method="post">
+                                <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+                            </form>
 
-                   
-
-                  
-
-                    
+                        </div>
+                    }
 
                 }
 

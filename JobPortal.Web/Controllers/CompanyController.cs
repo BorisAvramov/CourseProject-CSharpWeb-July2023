@@ -1,6 +1,7 @@
 ﻿using JobPortal.Data;
 using JobPortal.Data.Models;
 using JobPortal.Services.Data.Interfaces;
+using JobPortal.Web.Infrastructures.Extensions;
 using JobPortal.Web.ViewModels.Company;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -68,13 +69,13 @@ namespace JobPortal.Web.Controllers
             bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
-            if (IsCompany)
+            if (IsCompany && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You are already a recruiter!";
 
                 return RedirectToAction("Index", "Home");
             }
-            if (IsApplicant)
+            if (IsApplicant && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Applicant cannot become a recruiter!";
 

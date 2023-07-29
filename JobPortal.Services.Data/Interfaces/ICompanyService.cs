@@ -41,5 +41,8 @@ namespace JobPortal.Services.Data.Interfaces
         /// <returns>Company entity</returns>
         Task <Company> GetCompanyByApplicationUserId( string userId);
 
+
+        public bool IsCompanyOwner(Company company, JobOffer jobOffer);
+
     }
 }

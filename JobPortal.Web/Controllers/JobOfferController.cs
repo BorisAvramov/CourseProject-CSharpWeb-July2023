@@ -1,6 +1,7 @@
 ﻿using JobPortal.Data.Models;
 using JobPortal.Services.Data;
 using JobPortal.Services.Data.Interfaces;
+using JobPortal.Web.Infrastructures.Extensions;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.JobOffer;
 using JopPortal.Services.Data.Models.JobOffer;
@@ -311,7 +312,10 @@ namespace JobPortal.Web.Controllers
 
             var jobOffer = await jobOfferService.GetJobOfferById(id);
             var company = await companyService.GetCompanyByApplicationUserId(userId);
-            if (!IsCompanay)
+
+            bool isCompanyOwner = companyService.IsCompanyOwner(company, jobOffer);
+
+            if (!IsCompanay && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
                 return RedirectToAction("Index", "Home");
@@ -324,7 +328,7 @@ namespace JobPortal.Web.Controllers
             }
             
 
-            if (jobOffer.CompanyId != company.Id)
+            if (!isCompanyOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
                 return RedirectToAction(nameof(JobOffersPublishedFromACompany));
@@ -365,10 +369,12 @@ namespace JobPortal.Web.Controllers
 
             var jobOffer = await jobOfferService.GetJobOfferById(id);
             var company = await companyService.GetCompanyByApplicationUserId(userId);
+            bool isCompanyOwner =  companyService.IsCompanyOwner(company, jobOffer);
 
 
 
-            if (!IsCompanay)
+
+            if (!IsCompanay && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
 
@@ -381,7 +387,7 @@ namespace JobPortal.Web.Controllers
                 return RedirectToAction(nameof(JobOffersPublishedFromACompany));
             }
 
-            if (jobOffer.CompanyId != company.Id)
+            if (!isCompanyOwner && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
                 return RedirectToAction(nameof(JobOffersPublishedFromACompany));
@@ -413,10 +419,13 @@ namespace JobPortal.Web.Controllers
         {
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var jobOffer = await jobOfferService.GetJobOfferById(id);
+            var company = await companyService.GetCompanyByApplicationUserId(userId);
+
+            bool isCompanyOwner = companyService.IsCompanyOwner(company, jobOffer);
 
             bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
 
-            if (!IsCompanay)
+            if (!IsCompanay && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
 
@@ -426,6 +435,12 @@ namespace JobPortal.Web.Controllers
             {
                 this.TempData[ErrorMessage] = "Job Offer with the provided id does not exist!";
                 return RedirectToAction(nameof(JobOffersPublishedFromACompany));
+            }
+            if (!isCompanyOwner && !this.User.IsAdmin())
+            {
+                this.TempData[ErrorMessage] = "You are not creator of this Job Offer!";
+                return RedirectToAction(nameof(JobOffersPublishedFromACompany));
+
             }
 
 
@@ -472,7 +487,7 @@ namespace JobPortal.Web.Controllers
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
 
-            if (!IsApplicant)
+            if (!IsApplicant )
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be an applicant!";
 

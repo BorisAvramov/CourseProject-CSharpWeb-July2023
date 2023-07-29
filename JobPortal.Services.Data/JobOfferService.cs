@@ -195,18 +195,13 @@ namespace JobPortal.Services.Data
         public async Task Delete(string id, string userId)
         {
           var jobOffer = await GetJobOfferById(id);
-            var company = await companyService.GetCompanyByApplicationUserId(userId);
             if (jobOffer == null)
             {
                 throw new ArgumentException("Invalid job offer ID!");
 
             }
 
-            if (jobOffer.CompanyId != company.Id)
-            {
-                throw new InvalidOperationException("Not creator of job offer!");
-
-            }
+            
 
             jobOffer.IsDeleted = true;
             await dbContext.SaveChangesAsync();

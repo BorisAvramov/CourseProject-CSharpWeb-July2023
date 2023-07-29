@@ -21,17 +21,26 @@ namespace JobPortal.Web.Infrastructures.Extensions
 
     public static class WebApplicationBuilderExtensions
     {
-
+        /// <summary>
+        /// Register all services with their interfaces
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IApplicantService, ApplicantService>();
-            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<ISelectOptionCollectionService, SelectOptionCollectionService>();
             services.AddScoped<IJobOfferService, JobOfferService>();
 
         }
 
+
+        /// <summary>
+        /// Create an administrator role if it does not exist and add the role to an application user who has a specified email
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static IApplicationBuilder SeedAdministrator (this IApplicationBuilder app, string email)
         {
             using IServiceScope scopedServices = app.ApplicationServices.CreateScope();

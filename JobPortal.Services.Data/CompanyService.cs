@@ -9,10 +9,12 @@ namespace JobPortal.Services.Data
     public class CompanyService : ICompanyService
     {
         private readonly JobPortalDbContext dbContext;
+        
 
         public CompanyService(JobPortalDbContext _dbContext)
         {
             this.dbContext = _dbContext;
+           
         }
 
         public async Task<bool> CompanyExistsByPhoneNumber(string phoneNumber)
@@ -60,10 +62,17 @@ namespace JobPortal.Services.Data
                 .Companies
                 .FirstOrDefaultAsync(c => c.ApplicationUserId.ToString() == userId);
 
-            return company;
+            return company!;
 
 
 
+        }
+
+        public  bool IsCompanyOwner(Company company, JobOffer jobOffer)
+        {
+            bool isCompanyOwner = jobOffer.CompanyId == company.Id;
+
+            return isCompanyOwner;
         }
     }
 }
