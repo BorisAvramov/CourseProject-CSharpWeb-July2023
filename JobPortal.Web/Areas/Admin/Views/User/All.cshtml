@@ -1,0 +1,54 @@
+﻿@inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
+@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
+
+@model IEnumerable<UserViewModel>
+@{
+    ViewBag.Title = "All Users";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><label>Email</label></th>
+            <th><label>Full Name</label></th>
+            <th><label>Phone Number</label></th>
+            <th><label>User Is Applicant</label></th>
+            <th><label>User Is Company</label></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td><label>@user.Email</label></td>
+                <td><label>@user.FullName</label></td>
+                <td><label>@user.PhoneNumber</label></td>
+                <td>
+                    @{
+                        bool isApplicant = await applicantService.ApplicantExistsByUserId(user.Id);
+                        if(isApplicant)
+                        {
+                              <label>✔</label>
+
+                        }
+
+                    }
+                 
+                </td>
+                <td>
+                    @{
+                        bool IsCompany = await companyService.CompanyExistsByUserId(user.Id);
+                        if (IsCompany)
+                        {
+                            <label>✔</label>
+
+                        }
+
+                    }
+
+                </td>
+            </tr>
+        }
+        </tbody>
+</table>

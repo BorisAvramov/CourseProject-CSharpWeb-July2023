@@ -218,18 +218,6 @@ namespace JobPortal.Services.Data
                    ImageUrl = aj.Applicant.ImgUrl,
 
 
-                   //Id = aj.JobOffer.Id.ToString(),
-                   //Name = aj.JobOffer.Name,
-                   //Town = aj.JobOffer.Town.Name,
-                   //Level = aj.JobOffer.Level.Name,
-                   //ProgrammingLanguage = aj.JobOffer.ProgrammingLanguage.Name,
-                   //JobType = aj.JobOffer.JobType.TypeName,
-                   //CreatedOn = aj.JobOffer.CreatedOn.ToString("dd/MM/yyyy"),
-                   //Description = aj.JobOffer.Description,
-                   //Company = aj.JobOffer.Company.Name,
-                   //CompanyImageUrl = aj.JobOffer.Company.ImageUrl,
-                   //JobOfferApplicantsCount = aj.JobOffer.JobOfferApplicants.Count(),
-
                })
                .ToArrayAsync();
 

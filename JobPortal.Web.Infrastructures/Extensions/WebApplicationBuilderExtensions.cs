@@ -31,6 +31,7 @@ namespace JobPortal.Web.Infrastructures.Extensions
             services.AddScoped<IApplicantService, ApplicantService>();
             services.AddScoped<ISelectOptionCollectionService, SelectOptionCollectionService>();
             services.AddScoped<IJobOfferService, JobOfferService>();
+            services.AddScoped<IUserService, UserService>();
 
         }
 

@@ -1,0 +1,17 @@
+﻿using JobPortal.Web.ViewModels.User;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace JobPortal.Services.Data.Interfaces
+{
+    public interface IUserService
+    {
+        Task<string> GetFullNameById(string userId);
+        Task<IEnumerable<UserViewModel>> All(string userId);
+
+
+    }
+}
