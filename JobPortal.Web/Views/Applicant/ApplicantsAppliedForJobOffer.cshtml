@@ -1,0 +1,42 @@
+﻿@using System.Security.Claims;
+@using JobPortal.Web.Infrastructures.Extensions;
+@inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
+
+
+@model List<ApplicantAllViewModel>
+@{
+    ViewBag.Title = "All applicants have applied for the job";
+    string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+}
+
+<link rel="stylesheet" href="~/css/companyJobOffers.css" asp-append-version="true" />
+
+
+   
+    
+<h2 class="text-center">@ViewBag.Title</h2>
+    
+
+
+
+<hr />
+
+
+
+@if (!Model.Any())
+{
+
+    <h2 class="text-center">The Job Offer does not have any applicant applied for!</h2>
+
+}
+else
+{
+    <div class="row">
+        @foreach (ApplicantAllViewModel applicant in Model)
+        {
+            <partial name="_ApplicantPartial" model="applicant" />
+
+        }
+    </div>
+}

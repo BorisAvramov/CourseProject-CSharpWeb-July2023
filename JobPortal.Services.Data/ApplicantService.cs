@@ -201,5 +201,42 @@ namespace JobPortal.Services.Data
             await dbContext.SaveChangesAsync();
 
         }
+
+        public async Task<IEnumerable<ApplicantAllViewModel>> AllByJobOfferId(string jobOfferId)
+        {
+            IEnumerable<ApplicantAllViewModel> allApplicantsAppliedorTheJob = await dbContext.ApplicantsJobOffers
+               .Where(aj => aj.JobOfferId.ToString() == jobOfferId)
+               .Select(aj => new ApplicantAllViewModel
+               {
+                   Id = aj.Applicant.Id.ToString(),
+                   FirstName = aj.Applicant.FirstName,
+                   LastName = aj.Applicant.LastName,
+
+                   ProgrammingLanguage = aj.Applicant.ProgrammingLanguage.Name,
+                   Level = aj.Applicant.Level.Name,
+                   Town = aj.Applicant.Town.Name,
+                   ImageUrl = aj.Applicant.ImgUrl,
+
+
+                   //Id = aj.JobOffer.Id.ToString(),
+                   //Name = aj.JobOffer.Name,
+                   //Town = aj.JobOffer.Town.Name,
+                   //Level = aj.JobOffer.Level.Name,
+                   //ProgrammingLanguage = aj.JobOffer.ProgrammingLanguage.Name,
+                   //JobType = aj.JobOffer.JobType.TypeName,
+                   //CreatedOn = aj.JobOffer.CreatedOn.ToString("dd/MM/yyyy"),
+                   //Description = aj.JobOffer.Description,
+                   //Company = aj.JobOffer.Company.Name,
+                   //CompanyImageUrl = aj.JobOffer.Company.ImageUrl,
+                   //JobOfferApplicantsCount = aj.JobOffer.JobOfferApplicants.Count(),
+
+               })
+               .ToArrayAsync();
+
+
+            return allApplicantsAppliedorTheJob;
+
+
+        }
     }
 }

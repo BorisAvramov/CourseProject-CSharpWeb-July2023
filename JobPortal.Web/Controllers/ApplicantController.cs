@@ -1,6 +1,7 @@
 ﻿using JobPortal.Data.Models;
 using JobPortal.Services.Data;
 using JobPortal.Services.Data.Interfaces;
+using JobPortal.Web.Infrastructures.Extensions;
 using JobPortal.Web.ViewModels.Applicant;
 using JobPortal.Web.ViewModels.Company;
 using JobPortal.Web.ViewModels.JobOffer;
@@ -51,7 +52,7 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            if (IsCompany)
+            if (IsCompany && !User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Recruiter cannot become an applicant!";
 
@@ -84,7 +85,7 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            if (IsCompany)
+            if (IsCompany && !User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Recruiter cannot become an applicant!";
 
@@ -182,6 +183,43 @@ namespace JobPortal.Web.Controllers
 
 
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> ApplicantsAppliedForJobOffer(string id)
+        {
+            List<ApplicantAllViewModel> applicantsAppliedForJob = new List<ApplicantAllViewModel>();
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var joboffer = await jobOfferService.GetJobOfferById(id);
+           
+            bool IsCompanay = await this.companyService.CompanyExistsByUserId(userId);
+
+            if (!IsCompanay && !User.IsAdmin())
+            {
+                this.TempData[ErrorMessage] = "Access denied! You have to be a recruiter!";
+
+                return RedirectToAction(nameof(All));
+            }
+            try
+            {
+                applicantsAppliedForJob.AddRange(await applicantService.AllByJobOfferId(id!));
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] = "Unexpected error occurred! Please try again later or contact administrator!";
+                return RedirectToAction(nameof(All));
+
+            }
+
+
+
+            return this.View(applicantsAppliedForJob);
+
+
+        }
+
+
+
 
 
         /// <summary>

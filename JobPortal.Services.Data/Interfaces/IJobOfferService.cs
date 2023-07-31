@@ -68,7 +68,7 @@ namespace JobPortal.Services.Data.Interfaces
         /// <summary>
         /// Get all Job Offers Applied from Applicant!
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="applicantId"></param>
         /// <returns>IEnumerable<JobOfferAllViewModel></returns>
         Task<IEnumerable<JobOfferAllViewModel>> AllByApplicantId(string applicantId);
 

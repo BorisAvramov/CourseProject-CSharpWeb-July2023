@@ -48,7 +48,7 @@ namespace JobPortal.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-            if (IsApplicant)
+            if (IsApplicant && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Applicant cannot become a recruiter!";
 
@@ -69,7 +69,7 @@ namespace JobPortal.Web.Controllers
             bool IsCompany = await this.companyService.CompanyExistsByUserId(userId);
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
-            if (IsCompany && !this.User.IsAdmin())
+            if (IsCompany)
             {
                 this.TempData[ErrorMessage] = "You are already a recruiter!";
 

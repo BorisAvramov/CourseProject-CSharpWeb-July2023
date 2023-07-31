@@ -27,7 +27,7 @@
 
                 bool IsCompany = await companyService.CompanyExistsByUserId(userId);
                 bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
-                if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant)
+                if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant )
                 {
                     <div class="d-flex justify-content-center">
 
@@ -36,6 +36,22 @@
                         </form>
                   
                     </div>
+                    if (User.IsAdmin())
+                    {
+                        <div class="d-flex justify-content-center">
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="Applicant" asp-action="ApplicantsAppliedForJobOffer" method="get">
+                                <input type="submit" value="Applications" class="fs-6 btn btn-primary mb-3 p-2" />
+                            </form>
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="get">
+                                <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
+                            </form>
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Delete" method="post">
+                                <input type="submit" value="Delete" class="fs-6 btn btn-danger mb-3 p-2" />
+                            </form>
+
+                        </div>
+
+                    }
 
 
                 }
@@ -43,7 +59,11 @@
                 {
                     if ((IsCompany && (Model.CompanyId == company.Id.ToString())) || User.IsAdmin())
                     {
+                       
                         <div class="d-flex justify-content-center">
+                            <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="Applicant" asp-action="ApplicantsAppliedForJobOffer" method="get">
+                                    <input type="submit" value="Applications" class="fs-6 btn btn-primary mb-3 p-2" />
+                            </form>
                             <form class="input-group-sm" asp-route-id="@Model.Id" asp-controller="JobOffer" asp-action="Edit" method="get">
                                 <input type="submit" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
                             </form>

@@ -89,6 +89,14 @@ namespace JobPortal.Services.Data.Interfaces
         Task ApplicantApplyForOffer(Guid applicantId, Guid jobOfferId);
 
 
+        /// <summary>
+        /// Get all Applicants Applied for Job Offer!
+        /// </summary>
+        /// <param name="jobOfferId"></param>
+        /// <returns></returns>
+        Task<IEnumerable<ApplicantAllViewModel>> AllByJobOfferId(string jobOfferId);
+
+
 
 
 

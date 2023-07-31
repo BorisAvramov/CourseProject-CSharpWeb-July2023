@@ -206,6 +206,8 @@ namespace JobPortal.Web.Controllers
         }
 
 
+
+
         /// <summary>
         /// Get all Job Offers Applied from Applicant!
         /// </summary>
@@ -487,7 +489,7 @@ namespace JobPortal.Web.Controllers
             bool IsApplicant = await this.applicantService.ApplicantExistsByUserId(userId);
 
 
-            if (!IsApplicant )
+            if (!IsApplicant)
             {
                 this.TempData[ErrorMessage] = "Access denied! You have to be an applicant!";
 

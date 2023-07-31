@@ -1,4 +1,5 @@
 ﻿@using System.Security.Claims;
+@using JobPortal.Web.Infrastructures.Extensions;
 @inject JobPortal.Services.Data.Interfaces.ICompanyService companyService;
 @inject JobPortal.Services.Data.Interfaces.IApplicantService applicantService;
 
@@ -39,7 +40,11 @@
                             string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                             bool IsCompany = await companyService.CompanyExistsByUserId(userId);
                             bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
-                            if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant)
+                            if ((User?.Identity?.IsAuthenticated ?? false) && User.IsAdmin())
+                            {
+                                
+                            }
+                            else if ((User?.Identity?.IsAuthenticated ?? false) && isApplicant)
                             {
                                 var applicant = await applicantService.GetApplicantByApplicationUserId(userId);
 
@@ -78,7 +83,7 @@
 
 
                             }
-                            else if (User?.Identity?.IsAuthenticated ?? false)
+                            else if ((User?.Identity?.IsAuthenticated ?? false) &&  (!User.IsAdmin()))
                             {
 
                                 <li class="nav-item">
@@ -91,6 +96,7 @@
                                 </li>
 
                             }
+                           
 
                         }
 

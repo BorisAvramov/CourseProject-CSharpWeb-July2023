@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using static JobPortal.Common.GeneralApplicationConstants;
 
 namespace JobPortal.Web.Controllers
 {
@@ -21,7 +22,7 @@ namespace JobPortal.Web.Controllers
         }
 
         /// <summary>
-        /// Display Home Index View instead of type of user identity and role type - is Authenticated, is Applicant, is Company!
+        /// Display Home Index View instead of type of user identity and role type - is Authenticated, is Applicant, is Company, is Admin!
         /// </summary>
         /// <returns></returns>
 
@@ -33,6 +34,11 @@ namespace JobPortal.Web.Controllers
                 string? userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 bool IsCompany = await companyService.CompanyExistsByUserId(userId);
                 bool isApplicant = await applicantService.ApplicantExistsByUserId(userId);
+
+                if (this.User.IsInRole(AdminRoleName))
+                {
+                   return this.RedirectToAction("Index", "Home", new {Area = AdminAreaName});
+                }
 
                 if (IsCompany)
                 {

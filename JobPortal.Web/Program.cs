@@ -85,10 +85,27 @@ namespace JobPortal.Web
 
             app.SeedAdministrator(DevelopmentAdminEmail);
 
-            app.MapControllerRoute(
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                 name: "areas",
+                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+
+               
+                endpoints.MapRazorPages();
+
+            });
+
+              
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            //app.MapRazorPages();
 
 
 
