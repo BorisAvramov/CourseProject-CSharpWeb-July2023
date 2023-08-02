@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace JobPortal.Web.ViewModels.User
 {
+    /// <summary>
+    /// User View Model with properties to show in Admin Area
+    /// </summary>
+
     public class UserViewModel
     {
         public string Id { get; set; } = null!;

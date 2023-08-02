@@ -48,6 +48,8 @@ namespace JobPortal.Web
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/User/Login";
+                options.AccessDeniedPath = "/Home/AccessDenied";
+
 
             });
 
@@ -65,8 +67,13 @@ namespace JobPortal.Web
 
             if (app.Environment.IsDevelopment())
             {
+
                 app.UseMigrationsEndPoint();
                 app.UseDeveloperExceptionPage();
+
+
+
+
             }
             else
             {

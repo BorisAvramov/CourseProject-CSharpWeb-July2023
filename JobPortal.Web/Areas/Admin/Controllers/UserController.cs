@@ -14,6 +14,10 @@ namespace JobPortal.Web.Areas.Admin.Controllers
             this.userService = _userService;
         }
 
+        /// <summary>
+        /// Get all Users of Application
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public async Task <IActionResult> All()
