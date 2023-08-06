@@ -56,7 +56,7 @@ namespace JobPortal.Data.Configuration
                .OnDelete(DeleteBehavior.Restrict);
 
 
-            builder.HasData(this.GenerateJobOffers());
+            //builder.HasData(this.GenerateJobOffers());
 
         }
          private JobOffer[] GenerateJobOffers()

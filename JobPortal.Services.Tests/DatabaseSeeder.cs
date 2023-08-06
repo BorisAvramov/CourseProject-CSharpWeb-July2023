@@ -2,6 +2,7 @@
 using JobPortal.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,15 +15,34 @@ namespace JobPortal.Services.Tests
         public static ApplicationUser ApplicantUserPesho;
         public static ApplicationUser ApplicantUserAni;
         public static ApplicationUser FutureapplicantUserMIsho;
-
+        public static ApplicationUser FutureCompanyUserBosch;
         public static ApplicationUser CompanyUserSoftUni;
+        public static ApplicationUser CompanyUserBosch;
 
         public static Applicant applicantPesho;
         public static Applicant applicantBoris;
         public static Applicant applicantAni;
 
         public static Company companySoftUni;
+        public static Company companyBosch;
+
         public static JobOffer jobOfferCSharp;
+        public static JobOffer jobOfferJavaScript;
+
+        public static Level JuniorLevel;
+        public static Level MidLevel;
+        public static Level Senior;
+
+        public static ProgrammingLanguage CSharp;
+        public static ProgrammingLanguage JavaScript;
+
+        public static Town Varna;
+        public static Town Sofia;
+
+        public static JobType Remote;
+        public static JobType Hybrid;
+        public static JobType Office;
+
 
 
 
@@ -98,6 +118,22 @@ namespace JobPortal.Services.Tests
 
 
             };
+            FutureCompanyUserBosch = new ApplicationUser()
+            {
+
+                IsDeleted = false,
+                UserName = "boschTheCompany@companies",
+                NormalizedUserName = "BOSCHTHECOMPANY@COMPANIES",
+                Email = "boschTheCompany@companies",
+                NormalizedEmail = "BOSCHTHECOMPANY@COMPANIES",
+                EmailConfirmed = false,
+                PasswordHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                ConcurrencyStamp = "5fe1e55f-d451-40fb-9883-63d330c7550d",
+                SecurityStamp = "90d0b1b7-810d-43f4-bd1a-8c01382c81ea",
+                TwoFactorEnabled = false
+
+
+            };
 
             CompanyUserSoftUni = new ApplicationUser()
             {
@@ -113,6 +149,76 @@ namespace JobPortal.Services.Tests
                 TwoFactorEnabled = false
             };
 
+            CompanyUserBosch = new ApplicationUser()
+            {
+                IsDeleted = false,
+                UserName = "boschTheCompany@companies",
+                NormalizedUserName = "BOSCHTHECOMPANY@COMPANIES",
+                Email = "boschTheCompany@companies",
+                NormalizedEmail = "BOSCHTHECOMPANY@COMPANIES",
+                EmailConfirmed = false,
+                PasswordHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+                ConcurrencyStamp = "9be84a0fb-ec8d-48e6-8bcc-0b6a76f825e3",
+                SecurityStamp = "2b8f53b6-0bcd-455a-97cd-5986caeb2cbb",
+                TwoFactorEnabled = false
+            };
+
+            JuniorLevel = new Level()
+            {
+                IsDeleted = false,
+                Name = "Junior"
+            };
+            MidLevel = new Level()
+            {
+                IsDeleted = false,
+                Name = "Mid"
+            };
+            Senior = new Level()
+            {
+                IsDeleted = false,
+                Name = "Senior"
+            };
+
+            CSharp = new ProgrammingLanguage()
+            {
+                IsDeleted = false,
+                Name = "CSharp",
+                ImageUrl = "~/img/programmingLanguages/icons8-c-48.png",
+            };
+            JavaScript = new ProgrammingLanguage()
+            {
+                IsDeleted = false,
+                Name = "JavaScript",
+                ImageUrl = "~/img/programmingLanguages/icons8-js-48.png",
+
+            };
+
+            Varna = new Town()
+            {
+                IsDeleted = false,
+                Name = "Varna"
+            };
+            Sofia = new Town()
+            {
+                IsDeleted = false,
+                Name = "Sofia"
+            };
+
+            Remote = new JobType()
+            {
+                IsDeleted = false,
+                TypeName = "Remote"
+            };
+            Hybrid = new JobType()
+            {
+                IsDeleted = false,
+                TypeName = "Hybrid"
+            };
+            Office = new JobType()
+            {
+                IsDeleted = false,
+                TypeName = "Office"
+            };
             applicantPesho = new Applicant()
             {
                 IsDeleted = false,
@@ -120,6 +226,12 @@ namespace JobPortal.Services.Tests
                 LastName = "Petrov",
                 ImgUrl = "https://img.icons8.com/?size=96&id=18738&format=png",
                 Phone = "+359777777777",
+                Level = JuniorLevel,
+                LevelId = JuniorLevel.Id,
+                ProgrammingLanguage = CSharp,
+                ProgrammingLanguageId = CSharp.Id,
+                Town = Varna,
+                TownId = Varna.Id,
                 ApplicationUser = ApplicantUserPesho,
                 
 
@@ -132,6 +244,12 @@ namespace JobPortal.Services.Tests
                 LastName = "Avramov",
                 ImgUrl = "https://img.icons8.com/?size=96&id=9pUkuUjlk0Qa&format=png",
                 Phone = "+359666666666",
+                Level = MidLevel,
+                LevelId = MidLevel.Id,
+                ProgrammingLanguage = CSharp,
+                ProgrammingLanguageId = CSharp.Id,
+                Town = Varna,
+                TownId = Varna.Id,
                 ApplicationUser = ApplicantUserBoris,
                 ApplicationUserId = ApplicantUserBoris.Id
 
@@ -145,6 +263,12 @@ namespace JobPortal.Services.Tests
                 LastName = "Ivanova",
                 ImgUrl = "https://img.icons8.com/?size=96&id=23258&format=png",
                 Phone = "+359888888888",
+                Level = JuniorLevel,
+                LevelId = JuniorLevel.Id,
+                ProgrammingLanguage = JavaScript,
+                ProgrammingLanguageId = JavaScript.Id,
+                Town = Sofia,
+                TownId = Sofia.Id,
                 ApplicationUser = ApplicantUserAni,
 
 
@@ -163,15 +287,60 @@ namespace JobPortal.Services.Tests
                 Description = "Software University Ltd. is a private educational institution for practical training of programmers and IT specialists.",
                 ApplicationUser = CompanyUserSoftUni
             };
+            companyBosch = new Company()
+            {
 
+                IsDeleted = false,
+                Name = "Robert Bosch GmbH",
+                ImageUrl = "https://cdn-s3.angro.bg/media/magiccart/shopbrand/brand/b/o/bosch.jpg",
+                Phone = "++359333333333",
+                Address = "51b \"Cherni Vrah\" Blvd FPI Business Center Sofia",
+                Description = "The Bosch Group is a leading global supplier of technology and services",
+                ApplicationUser = CompanyUserBosch
+            };
 
             jobOfferCSharp = new JobOffer()
             {
                 IsDeleted= false,
                 Name = "C# .NET Developer",
                 Description = "As a .NET Developer your primary focus will be the development of software components using C# (.NET Core/.NET Standard with the role of a . NET developer is to develop, improve, troubleshoot, and maintain computer software applications. You are expected to plan, design, and develop new feature functionality of a software application, and identify, debug, and troubleshoot defects.",
-                Company = companySoftUni
+                JobType = Remote,
+                JobTypeId = Remote.Id,
+                Company = companySoftUni,
+                CompanyId = companySoftUni.Id,
+                ProgrammingLanguage = CSharp,
+                ProgrammingLanguageId = CSharp.Id,
+                Level = JuniorLevel,
+                LevelId = JuniorLevel.Id,
+                Town = Sofia,
+                TownId = Sofia.Id,
+                
+                
 
+             
+
+
+
+
+            };
+            jobOfferJavaScript = new JobOffer()
+            {
+                IsDeleted = false,
+                Name = "Front-End Developer with React/Angular",
+                Description = "As a Senior Front-End Developer, you can be а part of many impactful projects in the public sector and therefore make a true difference to the world. From developing a web application that enables a revolutionary way to attend a driver license exam to providing a new information system that could rationalize clinical studies, patients’ clinical data and prescriptions monitoring.",
+                JobType = Remote,
+                JobTypeId = Remote.Id,
+                Level = Senior,
+                LevelId = Senior.Id,
+                ProgrammingLanguage = JavaScript,
+                ProgrammingLanguageId = JavaScript.Id,
+                Town = Varna,
+                TownId = Varna.Id,
+                Company = companyBosch,
+                CompanyId = companyBosch.Id,
+
+
+               
 
 
             };
@@ -185,10 +354,12 @@ namespace JobPortal.Services.Tests
 
             dbContext.Applicants.Add(applicantPesho);
             dbContext.Applicants.Add(applicantBoris);
+            dbContext.Applicants.Add(applicantAni);
 
             dbContext.Companies.Add(companySoftUni);
 
             dbContext.JobOffers.Add(jobOfferCSharp);
+            dbContext.JobOffers.Add(jobOfferJavaScript);
 
             dbContext.ApplicantsJobOffers.Add(new ApplicantJobOffer()
             {

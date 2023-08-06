@@ -38,12 +38,14 @@ namespace JobPortal.Data.Configuration
               .HasForeignKey(a => a.ProgrammingLanguageId)
               .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasData(this.GenerateApplicants());
+            //builder.HasData(this.GenerateApplicants());
 
         }
 
         private Applicant[] GenerateApplicants()
         {
+
+           
 
             ICollection<Applicant> applicants = new HashSet<Applicant>();
 

@@ -27,6 +27,8 @@ namespace JobPortal.Services.Tests
 
             applicantService = new ApplicantService(this.dbContext);
 
+            //For correct testing you have to comment Seed data methotds (HasData()) in Entity Configuration Classes
+
             this.dbContext.Database.EnsureCreated();
 
             SeedDatabase(this.dbContext);
@@ -39,6 +41,78 @@ namespace JobPortal.Services.Tests
         public void Setup()
         {
         }
+
+
+        [Test]
+        public async Task AllFilteredByLevel()
+        {
+            AllApplicantsQueryModel queryModel = new AllApplicantsQueryModel()
+            {
+                Level = JuniorLevel.Name
+            };
+
+            var result = await applicantService.All(queryModel);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.TotalApplicantsCount, Is.EqualTo(2));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Petar" && a.LastName == "Petrov"));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Ani" && a.LastName == "Ivanova"));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Boris" && a.LastName == "Avramov"));
+
+        }
+        [Test]
+        public async Task AllFilteredByLanguage()
+        {
+            AllApplicantsQueryModel queryModel = new AllApplicantsQueryModel()
+            {
+                ProgrammingLanguage = JavaScript.Name
+            };
+
+            var result = await applicantService.All(queryModel);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.TotalApplicantsCount, Is.EqualTo(1));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Petar" && a.LastName == "Petrov"));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Ani" && a.LastName == "Ivanova"));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Boris" && a.LastName == "Avramov"));
+
+        }
+        [Test]
+        public async Task AllFilteredByTown()
+        {
+            AllApplicantsQueryModel queryModel = new AllApplicantsQueryModel()
+            {
+                Town = Varna.Name
+            };
+
+            var result = await applicantService.All(queryModel);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.TotalApplicantsCount, Is.EqualTo(2));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Petar" && a.LastName == "Petrov"));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Ani" && a.LastName == "Ivanova"));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Boris" && a.LastName == "Avramov"));
+
+        }
+
+        [Test]
+        public async Task AllFilteredBySearchString()
+        {
+            AllApplicantsQueryModel queryModel = new AllApplicantsQueryModel()
+            {
+                SearchString = "Boris"
+            };
+
+            var result = await applicantService.All(queryModel);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.TotalApplicantsCount, Is.EqualTo(1));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Petar" && a.LastName == "Petrov"));
+            Assert.That(!result.Applicants.Any(a => a.FirstName == "Ani" && a.LastName == "Ivanova"));
+            Assert.That(result.Applicants.Any(a => a.FirstName == "Boris" && a.LastName == "Avramov"));
+
+        }
+
 
         [Test]
         public async Task  ApplicantExistsByUserIdReturnsTrue()
@@ -76,7 +150,7 @@ namespace JobPortal.Services.Tests
         [Test]
         public async Task ApplicantExistsByPhoneNumberReturnsFalse()
         {
-            string phone = CompanyUserSoftUni.PhoneNumber;
+            string phone = companySoftUni.Phone;
 
             bool result = await applicantService.ApplicantExistsByPhoneNumber(phone);
 
@@ -208,6 +282,7 @@ namespace JobPortal.Services.Tests
                 TownId = 1,
                 LevelId = 2,
                 ProgrammingLanguageId = 3,
+                //ApplicationUserId = Guid.Parse(userId)
 
             };
 
