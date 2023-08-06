@@ -361,6 +361,20 @@ namespace JobPortal.Services.Tests
             dbContext.JobOffers.Add(jobOfferCSharp);
             dbContext.JobOffers.Add(jobOfferJavaScript);
 
+            dbContext.Levels.Add(Senior);
+            dbContext.Levels.Add(MidLevel);
+            dbContext.Levels.Add(JuniorLevel);
+
+            dbContext.ProgrammingLanguages.Add(CSharp);
+            dbContext.ProgrammingLanguages.Add(JavaScript);
+
+            dbContext.Towns.Add(Varna);
+            dbContext.Towns.Add(Sofia);
+
+            dbContext.JobTypes.Add(Remote);
+            dbContext.JobTypes.Add(Hybrid);
+            dbContext.JobTypes.Add(Office);
+
             dbContext.ApplicantsJobOffers.Add(new ApplicantJobOffer()
             {
                 Applicant = applicantPesho,
